@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/repository-name/static/css/main.f1e81435.css",
-    "main.js": "/repository-name/static/js/main.af4e5e74.js",
-    "index.html": "/repository-name/index.html",
-    "main.f1e81435.css.map": "/repository-name/static/css/main.f1e81435.css.map",
-    "main.af4e5e74.js.map": "/repository-name/static/js/main.af4e5e74.js.map"
+    "main.css": "/bacall-store/static/css/main.f1e81435.css",
+    "main.js": "/bacall-store/static/js/main.af4e5e74.js",
+    "index.html": "/bacall-store/index.html",
+    "main.f1e81435.css.map": "/bacall-store/static/css/main.f1e81435.css.map",
+    "main.af4e5e74.js.map": "/bacall-store/static/js/main.af4e5e74.js.map"
   },
   "entrypoints": [
     "static/css/main.f1e81435.css",
