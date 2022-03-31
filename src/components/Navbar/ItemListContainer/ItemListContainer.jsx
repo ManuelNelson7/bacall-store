@@ -19,6 +19,17 @@ const useCounter = (stock, initial = 0) => {
 
 const ItemListContainer = () => {
 
+    const pago = new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+            resolve('50')
+        }, 3000)
+    })
+
+    pago.then((res) => {
+        console.log('gracias por pagar ' + res);
+    })
+
     return (
         <div className='pt-24 flex justify-center min-h-screen bg-primary'>
             <div className="w-container max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-2">

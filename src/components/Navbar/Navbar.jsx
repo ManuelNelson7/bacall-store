@@ -151,12 +151,12 @@ export default function Navbar2() {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <a href="#">
+                                <a href="#q">
                                     <span className="sr-only">Bacall</span>
                                     <img
                                         className="h-6 w-auto"
                                         src="/img/logo.svg"
-                                        alt=""
+                                        alt="Logo Bacall"
                                     />
                                 </a>
                             </div>
