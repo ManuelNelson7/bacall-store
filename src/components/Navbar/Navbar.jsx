@@ -135,7 +135,7 @@ export default function Navbar2() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="fixed w-screen bg-primary">
+            <header className="fixed top-0 left-0 w-screen bg-primary">
 
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="border-b border-gold">
@@ -277,7 +277,7 @@ export default function Navbar2() {
                                 </div>
 
                                 {/* Cart */}
-                               <ShoppingCart />
+                                <ShoppingCart />
                             </div>
                         </div>
                     </div>
