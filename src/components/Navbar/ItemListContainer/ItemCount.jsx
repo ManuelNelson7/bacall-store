@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const ItemCount = ({ useCounter }) => {
+const ItemCount = ({ stock, initial = 0 }) => {
 
-  const { counter, total, quantity, increase, decrease } = useCounter;
+  const [counter, setcounter] = useState(initial)
+
+  const increase = () => {
+    counter < stock && setcounter(counter + 1)
+  }
+
+  const decrease = () => {
+    counter > 0 && setcounter(counter - 1)
+  }
+
+  const onAdd = () => {
+    alert(`You have added ${counter} items in your cart`)
+  }
 
   return (
     <div className='flex flex-col w-28 items-center gap-1'>
@@ -13,7 +25,7 @@ const ItemCount = ({ useCounter }) => {
         <button className='p-1' onClick={increase}>+</button>
       </div>
 
-      <button className='bg-gold text-white px-3 py-1 rounded-md w-full'>Add to cart</button>
+      <button onClick={() => onAdd()} className='bg-gold text-white px-3 py-1 rounded-md w-full'>Add to cart</button>
 
     </div>
   )
