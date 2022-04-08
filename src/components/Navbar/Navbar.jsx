@@ -9,7 +9,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar2() {
+export default function Navbar() {
     const [open, setOpen] = useState(false)
 
     return (
@@ -135,7 +135,7 @@ export default function Navbar2() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="fixed top-0 left-0 w-screen bg-primary">
+            <header className="fixed top-0 left-0 w-screen bg-primary z-10">
 
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="border-b border-gold">

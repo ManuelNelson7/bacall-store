@@ -17,15 +17,15 @@ const ItemCount = ({ stock, initial = 0 }) => {
   }
 
   return (
-    <div className='flex flex-col w-28 items-center gap-1'>
+    <div className='flex flex-col mt-3 items-center gap-1 z-10'>
 
-      <div className='flex bg-primary justify-between px-5 rounded-md w-full'>
+      <div className='flex bg-primary justify-between px-10 rounded-md w-full'>
         <button className='p-1' onClick={decrease}>-</button>
         <p className='p-1'>{counter}</p>
         <button className='p-1' onClick={increase}>+</button>
       </div>
 
-      <button onClick={() => onAdd()} className='bg-gold text-white px-3 py-1 rounded-md w-full'>Add to cart</button>
+      <button onClick={() => onAdd()} className='bg-gold text-white px-3 py-1.5 rounded-md w-full text-sm'>Add to cart</button>
 
     </div>
   )

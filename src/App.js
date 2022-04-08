@@ -1,13 +1,19 @@
-import ItemListContainer from './components/Navbar/ItemListContainer/ItemListContainer';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Home';
 
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
-      <ItemListContainer />
-    </div>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
