@@ -8,7 +8,7 @@ const ItemListContainer = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        customFetch(3, productList)
+        customFetch(1000, productList)
             .then(res => setItems(res))
             .catch(error => console.log(error));
     }, [items])

@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -23,6 +25,13 @@ module.exports = {
       width: {
         'container': '90%',
         'containermax': '100rem'
+      },
+      gridTemplateRows: {
+        '[auto,auto,1fr]': 'auto auto 1fr',
+      },
+      colors: {
+        amber: colors.amber,
+        emerald: colors.emerald,
       }
     },
   },
