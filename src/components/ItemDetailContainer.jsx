@@ -2,29 +2,47 @@ import React, { useEffect, useState } from 'react'
 import customFetch from '../utils/customFetch'
 import productList from '../utils/productList'
 import ItemDetail from './Items/ItemDetail'
+import { useParams } from 'react-router-dom'
 import Spinner from './Spinner'
 
 const ItemDetailContainer = () => {
+    const { id } = useParams()
     const [item, setItem] = useState({})
+    const [related, setRelated] = useState([])
+    const [sizes, setSizes] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        customFetch(3000, productList[1])
+        customFetch(1000, productList.find(product => product.id == id))
             .then(res => setItem(res))
             .catch(error => console.log(error))
-    }, [item])
+    }, [])
 
+    //This is a solution to get the sizes and related items to load after the item has been loaded
+    useEffect(() => {
+        if (item && productList) {
+            const related = (productList.filter(product => product.category === item.category && product.id !== item.id))
+            setRelated(related);
+            setSizes(item.sizes);
+            setLoading(false)
+            console.log(sizes);
+        }
+    }, [item]);
 
     return (
         <>
-            <ItemDetail
+            {loading ? <Spinner />
+            :
+            (item? <ItemDetail
                 name={item.name}
                 price={item.price}
                 img={item.img}
                 stock={item.stock}
                 category={item.category}
                 description={item.description}
-                sizes={item.sizes}
-            />
+                sizes={sizes}
+                related={related}
+            /> : <div>Item does not exist!</div>)}
         </>
     )
 }

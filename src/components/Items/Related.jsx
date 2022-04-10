@@ -3,11 +3,11 @@ import ItemCount from '../Items/ItemCount'
 import { Link } from 'react-router-dom'
 
 
-const Item = ({ id, name, category, price, img, stock }) => {
+const Related = ({ id, name, category, price, img, stock }) => {
     return (
         <div key={id} className="group relative">
             <Link to={`/item/${id}`} className='hover:opacity-75'>
-                <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
+                <div className="w-full h-60 bg-gray-200 rounded-md overflow-hidden">
 
                     <img
                         src={img}
@@ -27,10 +27,8 @@ const Item = ({ id, name, category, price, img, stock }) => {
                     <p className="text-sm font-medium text-gray-900">${price}</p>
                 </div>
             </Link>
-
-            <ItemCount stock={stock} />
         </div>
     )
 }
 
-export default Item
+export default Related

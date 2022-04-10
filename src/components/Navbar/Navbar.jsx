@@ -4,6 +4,7 @@ import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, XIcon } from '@heroicons/react/outline'
 import { navigation } from './navigation'
 import ShoppingCart from './ShoppingCart'
+import { Link } from 'react-router-dom'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -94,7 +95,6 @@ export default function Navbar() {
                                                         {section.name}
                                                     </p>
                                                     <ul
-                                                        role="list"
                                                         aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                                                         className="mt-6 flex flex-col space-y-6"
                                                     >
@@ -151,14 +151,13 @@ export default function Navbar() {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <a href="#q">
-                                    <span className="sr-only">Bacall</span>
+                                <Link to="/">
                                     <img
                                         className="h-6 w-auto"
                                         src="/img/logo.svg"
                                         alt="Logo Bacall"
                                     />
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Flyout menus */}
@@ -223,7 +222,6 @@ export default function Navbar() {
                                                                                         {section.name}
                                                                                     </p>
                                                                                     <ul
-                                                                                        role="list"
                                                                                         aria-labelledby={`${section.name}-heading`}
                                                                                         className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                                                                     >
@@ -270,10 +268,10 @@ export default function Navbar() {
 
                                 {/* Search */}
                                 <div className="flex lg:ml-6">
-                                    <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">Search</span>
-                                        <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                                    </a>
+
+                                    <span className="sr-only">Search</span>
+                                    <SearchIcon className="w-6 h-6" aria-hidden="true" />
+
                                 </div>
 
                                 {/* Cart */}
