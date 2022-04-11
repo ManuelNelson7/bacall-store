@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import ItemCount from './ItemCount'
-import Spinner from '../Spinner'
-import productList from '../../utils/productList'
-import Item from './Item'
 import Related from './Related'
 
 
@@ -21,11 +18,11 @@ export default function ItemDetail({ id, name, category, price, img, stock, desc
 
         {/* Image gallery */}
         <div className="p-5">
-          <div className="rounded-lg overflow-hidden lg:block">
+          <div className="rounded-lg overflow-hidden lg:h-img lg:w-img bg-gold lg:block">
             <img
               src={img}
               alt={name}
-              className="w-full h-full object-center object-cover"
+              className="object-center object-cover w-full h-full"
             />
           </div>
         </div>
@@ -52,7 +49,7 @@ export default function ItemDetail({ id, name, category, price, img, stock, desc
                 <RadioGroup value={selectedSize} className="mt-2">
                   <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
                   <div className="grid grid-cols-3 gap-4 sm:grid-cols-8 lg:grid-cols-3">
-                    {sizes?.map((size) => (
+                    {sizes.map((size) => (
                       <RadioGroup.Option
                         key={size.name}
                         value={size}

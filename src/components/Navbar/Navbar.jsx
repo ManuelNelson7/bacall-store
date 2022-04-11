@@ -151,7 +151,7 @@ export default function Navbar() {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <Link to="/">
+                                <Link to="/" className='py-4'>
                                     <img
                                         className="h-6 w-auto"
                                         src="/img/logo.svg"
@@ -160,9 +160,19 @@ export default function Navbar() {
                                 </Link>
                             </div>
 
+
                             {/* Flyout menus */}
                             <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
+
                                 <div className="h-full flex space-x-8">
+
+                                    <Link
+                                        to='/categories'
+                                        className='flex items-center px-2.5 text-sm text-dark hover:text-gold font-medium font-poppins uppercase transition-all duration-100'
+                                    >
+                                        Products
+                                    </Link>
+
                                     {navigation.categories.map((category) => (
                                         <Popover key={category.name} className="flex">
                                             {({ open }) => (

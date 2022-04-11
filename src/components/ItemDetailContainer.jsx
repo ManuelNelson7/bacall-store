@@ -7,16 +7,17 @@ import Spinner from './Spinner'
 
 const ItemDetailContainer = () => {
     const { id } = useParams()
+
     const [item, setItem] = useState({})
     const [related, setRelated] = useState([])
     const [sizes, setSizes] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        customFetch(1000, productList.find(product => product.id == id))
+        customFetch(1, productList.find(product => product.id == id))
             .then(res => setItem(res))
             .catch(error => console.log(error))
-    }, [])
+    }, [id])
 
     //This is a solution to get the sizes and related items to load after the item has been loaded
     useEffect(() => {
@@ -24,25 +25,27 @@ const ItemDetailContainer = () => {
             const related = (productList.filter(product => product.category === item.category && product.id !== item.id))
             setRelated(related);
             setSizes(item.sizes);
-            setLoading(false)
-            console.log(sizes);
         }
+    }, [item]);
+
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 100);
     }, [item]);
 
     return (
         <>
             {loading ? <Spinner />
-            :
-            (item? <ItemDetail
-                name={item.name}
-                price={item.price}
-                img={item.img}
-                stock={item.stock}
-                category={item.category}
-                description={item.description}
-                sizes={sizes}
-                related={related}
-            /> : <div>Item does not exist!</div>)}
+                :
+                (item ? <ItemDetail
+                    name={item.name}
+                    price={item.price}
+                    img={item.img}
+                    stock={item.stock}
+                    category={item.category}
+                    description={item.description}
+                    sizes={sizes}
+                    related={related}
+                /> : <div>Item does not exist!</div>)}
         </>
     )
 }

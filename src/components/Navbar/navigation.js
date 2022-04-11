@@ -1,49 +1,6 @@
 export const navigation = {
     categories: [
         {
-            id: 'products',
-            name: 'Products',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://i.pinimg.com/564x/a4/35/90/a435908259ba0452e7561a19e6640c5e.jpg',
-                    imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-                },
-                {
-                    name: 'Basic Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-                    imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-                },
-            ],
-            sections: [
-                {
-                    id: 'clothing',
-                    name: 'Clothing',
-                    items: [
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Jeans', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Polo Shirts', href: '#' },
-                        { name: 'Shirts', href: '#' },
-                        { name: 'Suits', href: '#' },
-                        { name: 'Browse All', href: '#' }
-                    ],
-                },
-                {
-                    id: 'accessories',
-                    name: 'Accessories',
-                    items: [
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Watches', href: '#' }
-                    ],
-                },
-            ],
-        },
-        {
             id: 'collections',
             name: 'Collections',
             featured: [

@@ -20,11 +20,13 @@ module.exports = {
       height: {
         '90': '50rem',
         'img': '43rem',
-        'imgmd': '35rem'
+        'imgmd': '35rem',
+        spinner: '45vh'
       },
       width: {
         'container': '90%',
-        'containermax': '100rem'
+        'containermax': '100rem',
+        img: '31rem'
       },
       gridTemplateRows: {
         '[auto,auto,1fr]': 'auto auto 1fr',

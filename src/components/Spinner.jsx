@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/ClipLoader";
 
@@ -12,7 +11,7 @@ const override = css`
 function Spinner() {
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mt-64">
       <BeatLoader color='#928656' css={override} size={100} />
       <p className="mt-2 text-gold font-poppins text-md font-semibold">Loading this item...</p>
     </div>

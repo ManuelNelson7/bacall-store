@@ -8,20 +8,15 @@ const ItemListContainer = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        customFetch(1000, productList)
+        customFetch(10, productList)
             .then(res => setItems(res))
             .catch(error => console.log(error));
-    }, [items])
+    }, [])
 
 
     return (
-        <div className='pt-24 flex justify-center min-h-screen bg-white'>
-            <div className="w-container max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-2">
+        <ItemList products={items} />
 
-                <ItemList products={items} />
-
-            </div>
-        </div>
     )
 }
 
