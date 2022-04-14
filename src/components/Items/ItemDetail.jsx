@@ -100,7 +100,7 @@ export default function ItemDetail({ id, name, category, price, img, stock, desc
                 </RadioGroup>
               </div>
 
-              <ItemCount stock={stock} />
+              <ItemCount stock={stock} handleCount={true}/>
             </div>
           </div>
 
