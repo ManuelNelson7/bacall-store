@@ -11,13 +11,13 @@ export const navigation = {
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
-                    name: 'New Arrivals',
+                    name: 'New',
                     href: '#',
                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
-                    name: 'New Arrivals',
+                    name: 'New a',
                     href: '#',
                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',

@@ -4,7 +4,6 @@ import CategoriesContainer from './components/CategoriesContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import Navbar from './components/Navbar/Navbar';
 import Categories from './pages/Categories';
-import Home from './pages/Home';
 
 
 function App() {

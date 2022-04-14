@@ -3,7 +3,7 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
 import ItemListContainer from '../components/ItemListContainer'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { categories } from '../utils/categories'
 
 const sortOptions = [
@@ -43,6 +43,9 @@ function classNames(...classes) {
 
 export default function Categories() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+
+    const {id} = useParams
+    console.log(id);
 
     return (
         <div className="bg-white">
@@ -90,7 +93,7 @@ export default function Categories() {
                                     <ul className="font-medium text-gray-900 px-2 py-3">
                                         {categories.map((category) => (
                                             <li key={category.name}>
-                                                <Link to='/categories/:id' className="block px-2 py-3">
+                                                <Link to='/:name' className="block px-2 py-3">
                                                     {category.name}
                                                 </Link>
                                             </li>
