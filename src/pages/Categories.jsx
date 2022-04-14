@@ -219,7 +219,7 @@ export default function Categories() {
                                 <ul className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
                                     {categories.map((category) => (
                                         <li key={category.name}>
-                                            <Link to={`${category.id}`}>{category.name}</Link>
+                                            <Link to={`/category/${category.id}`}>{category.name}</Link>
                                         </li>
                                     ))}
                                 </ul>
