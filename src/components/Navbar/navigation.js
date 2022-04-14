@@ -1,37 +1,40 @@
 export const navigation = {
     categories: [
         {
-            id: 'collections',
-            name: 'Collections',
+            id: 'categories',
+            name: 'Categories',
             featured: [
                 {
-                    name: 'New Arrivals',
+                    name: 'Vintage Collection',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+                    imageSrc: 'https://i8.amplience.net/i/indochino/15013992_0_0/brown-solid-design-trenchcoat.jpg?$suit-pdp-desk$',
+                    imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
                 },
                 {
-                    name: 'New',
+                    name: 'Basic Colours Collection',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+                    imageSrc: 'https://i.pinimg.com/564x/b7/9a/de/b79adef99eb0a579e026cf7633d41c3c.jpg',
+                    imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
                 },
                 {
-                    name: 'New a',
+                    name: 'Essentials Collection',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-                },
-                {
-                    name: 'Artwork Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                    imageSrc: 'https://cdn.shopify.com/s/files/1/0571/5122/6063/products/kd00436_med-grey_1-v2_2440x.jpg?v=1645555407',
+                    imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
                 },
             ],
             sections: [
-                
+                {
+                    id: 'clothing',
+                    name: 'Clothing',
+                    items: [
+                        { name: 'Coats' },
+                        { name: 'Jackets' },
+                        { name: 'Pants' },
+                        { name: 'Shirts' },
+                        { name: 'Suits'},
+                    ],
+                },
             ],
         },
     ],

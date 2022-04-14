@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ItemDetail({ id, name, category, price, img, stock, description, sizes, related }) {
+export default function ItemDetail({ id, name, price, img, stock, description, sizes, related, sale, oldPrice }) {
 
   const [selectedSize, setSelectedSize] = useState()
 
@@ -36,7 +36,10 @@ export default function ItemDetail({ id, name, category, price, img, stock, desc
           {/* Options */}
           <div className="mt-4 lg:mt-0 lg:row-span-3">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl text-dark mt-4 font-poppins">${price}</p>
+            <p className={sale ? `text-3xl text-brown mt-4 font-poppins flex items-center` : `text-3xl text-dark mt-4 font-poppins`}>
+              ${price}
+              {sale && <span className="text-2xl ml-3 line-through text-dark opacity-60">${oldPrice}</span>}
+            </p>
 
             <div className="mt-8">
 
@@ -100,7 +103,7 @@ export default function ItemDetail({ id, name, category, price, img, stock, desc
                 </RadioGroup>
               </div>
 
-              <ItemCount stock={stock} handleCount={true}/>
+              <ItemCount stock={stock} handleCount={true} />
             </div>
           </div>
 
@@ -112,7 +115,7 @@ export default function ItemDetail({ id, name, category, price, img, stock, desc
                 <p className="text-base text-gray-900">{description}</p>
               </div>
 
-              {related.length > 1 &&
+              {related.length &&
 
                 <div className="mt-8">
                   <h3 className='text-lg font-lora text-gold font-semibold'>Related items</h3>

@@ -1,10 +1,12 @@
 import React from 'react'
-import ItemListContainer from '../components/ItemListContainer'
+import Hero from '../components/Hero'
+import Categories from './Categories'
 
 const Home = () => {
   return (
     <>
-      <ItemListContainer />
+      <Hero />
+      <Categories />
     </>
   )
 }

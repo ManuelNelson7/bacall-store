@@ -4,21 +4,29 @@ import customFetch from '../utils/customFetch';
 import productList from '../utils/productList'
 import ItemList from './Items/ItemList'
 
-const ItemListContainer = () => {
+const ItemListContainer = ({priceFilter}) => {
+
+    const { id } = useParams()
 
     const [items, setItems] = useState([]);
 
 
     useEffect(() => {
-        customFetch(10, productList)
-            .then(res => setItems(res))
-            .catch(error => console.log(error));
-    }, [])
+        if (!id) {
+            customFetch(10, productList)
+                .then(res => setItems(res))
+                .catch(error => console.log(error));
+        } else {
+            customFetch(1, productList.filter(product => product.category == id))
+                .then(res => setItems(res))
+                .catch(error => console.log(error))
+        }
+    }, [id])
 
 
     return (
         <>
-        <ItemList products={items} />
+            <ItemList products={items} />
         </>
 
     )

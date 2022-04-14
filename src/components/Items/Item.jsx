@@ -3,7 +3,7 @@ import ItemCount from '../Items/ItemCount'
 import { Link } from 'react-router-dom'
 
 
-const Item = ({ id, name, category, price, img, stock }) => {
+const Item = ({ id, name, category, price, img, stock, oldPrice, sale }) => {
 
     const [handleCount, setHandleCount] = useState(false)
 
@@ -27,7 +27,10 @@ const Item = ({ id, name, category, price, img, stock }) => {
                             </p>
                         </h3>
                     </div>
-                    <p className="text-sm font-medium text-gray-900">${price}</p>
+                    <p className={sale ? `text-sm text-brown font-semibold` : `text-sm font-semibold text-gray-900`}>
+                        {sale && <span className='mr-3 text-dark opacity-50 font-medium line-through'>${oldPrice}</span>}
+                        ${price}
+                    </p>
                 </div>
             </Link>
 

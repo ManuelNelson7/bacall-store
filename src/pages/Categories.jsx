@@ -7,22 +7,10 @@ import { Link, useParams } from 'react-router-dom'
 import { categories } from '../utils/categories'
 
 const sortOptions = [
-    { name: 'Price: Low to High', href: '#', current: false },
-    { name: 'Price: High to Low', href: '#', current: false },
+    { name: 'Price: Low to High', state: 'low', current: false },
+    { name: 'Price: High to Low', state: 'high', current: false },
 ]
 const filters = [
-    {
-        id: 'color',
-        name: 'Color',
-        options: [
-            { value: 'white', label: 'White', checked: false },
-            { value: 'beige', label: 'Beige', checked: false },
-            { value: 'blue', label: 'Blue', checked: true },
-            { value: 'brown', label: 'Brown', checked: false },
-            { value: 'green', label: 'Green', checked: false },
-            { value: 'purple', label: 'Purple', checked: false },
-        ],
-    },
     {
         id: 'size',
         name: 'Size',
@@ -43,12 +31,13 @@ function classNames(...classes) {
 
 export default function Categories() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const [priceFilter, setpriceFilter] = useState('default')
 
     const {id} = useParams
     console.log(id);
 
     return (
-        <div className="bg-white">
+        <div w-container max-w-7xl px-4 className="bg-white">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -178,16 +167,16 @@ export default function Categories() {
                                             {sortOptions.map((option) => (
                                                 <Menu.Item key={option.name}>
                                                     {({ active }) => (
-                                                        <a
-                                                            href={option.href}
+                                                        <button
                                                             className={classNames(
                                                                 option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                                                 active ? 'bg-gray-100' : '',
                                                                 'block px-4 py-2 text-sm'
                                                             )}
+                                                            onClick={() => setpriceFilter(option.state)}
                                                         >
                                                             {option.name}
-                                                        </a>
+                                                        </button>
                                                     )}
                                                 </Menu.Item>
                                             ))}
@@ -219,7 +208,7 @@ export default function Categories() {
                                 <ul className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
                                     {categories.map((category) => (
                                         <li key={category.name}>
-                                            <Link to={`/category/${category.id}`}>{category.name}</Link>
+                                            <Link to={`/categories/${category.id}`}>{category.name}</Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -270,7 +259,7 @@ export default function Categories() {
 
                             {/* Product grid */}
                             <div className="lg:col-span-3">
-                                <ItemListContainer />
+                                <ItemListContainer priceFilter={priceFilter}/>
                             </div>
                         </div>
                     </section>

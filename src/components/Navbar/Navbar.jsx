@@ -100,9 +100,9 @@ export default function Navbar() {
                                                     >
                                                         {section.items.map((item) => (
                                                             <li key={item.name} className="flow-root">
-                                                                <a href={item.href} className="text-dark hover:text-brown font-poppins transition-all duration-100  -m-2 p-2 block text-sm">
+                                                                <Link to={`categories/${item.name}`} className="text-dark hover:text-brown font-poppins transition-all duration-100  -m-2 p-2 block text-sm">
                                                                     {item.name}
-                                                                </a>
+                                                                </Link>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -237,9 +237,9 @@ export default function Navbar() {
                                                                                     >
                                                                                         {section.items.map((item) => (
                                                                                             <li key={item.name} className="flex">
-                                                                                                <a href={item.href} className="hover:text-brown">
+                                                                                                <Link to={`categories/${item.name}`} className="hover:text-brown">
                                                                                                     {item.name}
-                                                                                                </a>
+                                                                                                </Link>
                                                                                             </li>
                                                                                         ))}
                                                                                     </ul>
