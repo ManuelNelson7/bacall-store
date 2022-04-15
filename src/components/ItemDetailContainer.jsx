@@ -36,18 +36,20 @@ const ItemDetailContainer = () => {
         <>
             {loading ? <Spinner />
                 :
-                (item ? <ItemDetail
-                    name={item.name}
-                    price={item.price}
-                    img={item.img}
-                    stock={item.stock}
-                    category={item.category}
-                    description={item.description}
-                    sale={item.sale}
-                    oldPrice={item.oldPrice}
-                    sizes={sizes}
-                    related={related}
-                /> : <div>Item does not exist!</div>)}
+                (item ?
+                    <>
+                        <ItemDetail
+                            name={item.name}
+                            price={item.price}
+                            img={item.img}
+                            stock={item.stock}
+                            category={item.category}
+                            description={item.description}
+                            sale={item.sale}
+                            oldPrice={item.oldPrice}
+                            sizes={sizes}
+                            related={related}
+                        /> </> : <div>Item does not exist!</div>)}
         </>
     )
 }

@@ -2,18 +2,21 @@ import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import ItemCount from './ItemCount'
 import Related from './Related'
+import BreadCrumb from '../BreadCrumb'
 
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ItemDetail({ id, name, price, img, stock, description, sizes, related, sale, oldPrice }) {
+export default function ItemDetail({ id, name, price, img, stock, description, sizes, related, sale, oldPrice, category }) {
 
   const [selectedSize, setSelectedSize] = useState()
 
   return (
     <div className="bg-white max-w-2xl mx-auto py-16 px-0 sm:py-24 lg:max-w-7xl">
+      <BreadCrumb category={category} name={name} />
+
       <div className="pt-6 grid md:grid-cols-2 grid-cols-1">
 
         {/* Image gallery */}
