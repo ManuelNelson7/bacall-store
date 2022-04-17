@@ -3,15 +3,22 @@ import { RadioGroup } from '@headlessui/react'
 import ItemCount from './ItemCount'
 import Related from './Related'
 import BreadCrumb from '../BreadCrumb'
+import { Link } from 'react-router-dom'
 
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ItemDetail({ id, name, price, img, stock, description, sizes, related, sale, oldPrice, category }) {
-
+const ItemDetail = ({ id, name, price, img, stock, description, sizes, related, sale, oldPrice, category }) => {
   const [selectedSize, setSelectedSize] = useState()
+  const [quantity, setQuantity] = useState(0) // quantity of items in the ItemCount
+  const [showCart, setShowCart] = useState(false)
+
+  const onAdd = (number) => {
+    setQuantity(number)
+    number > 0 && setShowCart(true)
+  }
 
   return (
     <div className="bg-white max-w-2xl mx-auto py-16 px-0 sm:py-24 lg:max-w-7xl">
@@ -31,7 +38,7 @@ export default function ItemDetail({ id, name, price, img, stock, description, s
         </div>
 
         {/* Product info */}
-        <div className="mx-auto pt-10 pb-16 px-4 lg:pt-16 lg:pb-24 lg:grid lg:grid-cols-1 lg:gap-x-8">
+        <div className="mx-auto pt-4 pb-16 px-4 lg:pb-24 lg:grid lg:grid-cols-1 lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
             <h1 className="text-2xl font-bold font-lora tracking-tight text-gray-900 sm:text-3xl">{name}</h1>
           </div>
@@ -106,7 +113,26 @@ export default function ItemDetail({ id, name, price, img, stock, description, s
                 </RadioGroup>
               </div>
 
-              <ItemCount stock={stock} handleCount={true} />
+              <div className='mt-5 w-full'>
+                {
+                  showCart ?
+                    <Link to='/cart'
+                      className='uppercase outline outline-2 mt-6 w-full flex justify-center outline-gold text-gold font-semibold px-4 py-2.5 rounded-md transition-all duration-150 hover:bg-brown hover:text-white hover:outline-brown'
+                    >
+                      Go to the cart
+                    </Link>
+                    :
+                    <ItemCount
+                      stock={stock}
+                      handleCount={true}
+                      onAdd={onAdd}
+                      showCart={showCart}
+
+                    />
+
+                }
+              </div>
+
             </div>
           </div>
 
@@ -143,3 +169,5 @@ export default function ItemDetail({ id, name, price, img, stock, description, s
     </div>
   )
 }
+
+export default ItemDetail

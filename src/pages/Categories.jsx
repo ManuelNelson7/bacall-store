@@ -32,9 +32,11 @@ function classNames(...classes) {
 export default function Categories() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [priceFilter, setpriceFilter] = useState('default')
+    const [saleFilter, setSaleFilter] = useState('checked')
 
-    const {id} = useParams
-    console.log(id);
+    const handleCheckboxChange = (event) => {
+        console.log(event.currentTarget.value)
+    }
 
     return (
         <div w-container max-w-7xl px-4 className="bg-white">
@@ -87,7 +89,14 @@ export default function Categories() {
                                                 </Link>
                                             </li>
                                         ))}
+                                        <li>
+                                            <Link to='/categories'>
+                                                All products
+                                            </Link>
+                                        </li>
                                     </ul>
+
+                                    <h3 className="sr-only">Categories</h3>
 
                                     {filters.map((section) => (
                                         <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
@@ -206,9 +215,18 @@ export default function Categories() {
                             <form className="hidden lg:block">
                                 <h3 className="sr-only">Categories</h3>
                                 <ul className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                                    <li>
+                                        <Link to='/categories' className='hover:text-gold transition-all duration-100'>
+                                            All products
+                                        </Link>
+                                    </li>
                                     {categories.map((category) => (
                                         <li key={category.name}>
-                                            <Link to={`/categories/${category.id}`}>{category.name}</Link>
+                                            <Link to={`/categories/${category.id}`}
+                                                className='hover:text-gold transition-all duration-100'
+                                            >
+                                                {category.name}
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -255,11 +273,33 @@ export default function Categories() {
                                         )}
                                     </Disclosure>
                                 ))}
+
+                                <div className="mt-5">
+
+                                    <div key='sale' className="flex items-center">
+                                        <input
+                                            id={`filter-sale`}
+                                            name={`sale[]`}
+                                            defaultValue={false}
+                                            type="checkbox"
+                                            defaultChecked={false}
+                                            className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                            onChange={() => handleCheckboxChange()}
+                                        />
+                                        <label
+                                            htmlFor={`filter-sale`}
+                                            className="ml-3 text-sm text-gray-600"
+                                        >
+                                            Sale
+                                        </label>
+                                    </div>
+
+                                </div>
                             </form>
 
                             {/* Product grid */}
                             <div className="lg:col-span-3">
-                                <ItemListContainer priceFilter={priceFilter}/>
+                                <ItemListContainer priceFilter={priceFilter} saleFilter={saleFilter} />
                             </div>
                         </div>
                     </section>

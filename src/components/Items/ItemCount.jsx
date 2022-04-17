@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ItemCount = ({ stock, initial = 0, handleCount }) => {
+const ItemCount = ({ stock, initial = 0, handleCount, onAdd, showCart }) => {
 
   const [counter, setcounter] = useState(initial)
 
@@ -12,9 +12,6 @@ const ItemCount = ({ stock, initial = 0, handleCount }) => {
     counter > 0 && setcounter(counter - 1)
   }
 
-  const onAdd = (size) => {
-    alert(size ? `You have added ${counter} items in your cart, with the ${size} size` : `You have added ${counter} items in your cart`)
-  }
 
   return (
     <div className={!handleCount && `hidden`}>
@@ -27,7 +24,7 @@ const ItemCount = ({ stock, initial = 0, handleCount }) => {
           <button className='p-1 font-bold' onClick={increase}>+</button>
         </div>
 
-        <button onClick={() => onAdd()} className='bg-gold text-white px-3 py-1.5 font-semibold rounded-md w-full text-md'>Add to cart</button>
+        <button onClick={() => onAdd(counter)} className='bg-gold text-white px-3 py-1.5 font-semibold rounded-md w-full text-md'>Add to cart</button>
 
       </div>
     </div>
