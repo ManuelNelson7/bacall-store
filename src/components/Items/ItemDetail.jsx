@@ -1,19 +1,22 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import ItemCount from './ItemCount'
 import Related from './Related'
 import BreadCrumb from '../BreadCrumb'
 import { Link } from 'react-router-dom'
+import { CartContext } from '../CartContext'
 
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const ItemDetail = ({ id, name, price, img, stock, description, sizes, related, sale, oldPrice, category }) => {
+const ItemDetail = ({ item, related, sizes, id }) => {
   const [selectedSize, setSelectedSize] = useState()
   const [quantity, setQuantity] = useState(0) // quantity of items in the ItemCount
   const [showCart, setShowCart] = useState(false)
+
+  const { addToCart, removeFromCart, clearCart, buyAll } = useContext(CartContext)
 
   const onAdd = (number) => {
     setQuantity(number)
@@ -22,7 +25,7 @@ const ItemDetail = ({ id, name, price, img, stock, description, sizes, related, 
 
   return (
     <div className="bg-white max-w-2xl mx-auto py-16 px-0 sm:py-24 lg:max-w-7xl">
-      <BreadCrumb category={category} name={name} />
+      <BreadCrumb category={item.category} name={item.name} />
 
       <div className="pt-6 grid md:grid-cols-2 grid-cols-1">
 
@@ -30,8 +33,8 @@ const ItemDetail = ({ id, name, price, img, stock, description, sizes, related, 
         <div className="p-5">
           <div className="rounded-lg overflow-hidden lg:h-img lg:w-img bg-gold lg:block">
             <img
-              src={img}
-              alt={name}
+              src={item.img}
+              alt={item.name}
               className="object-center object-cover w-full h-full"
             />
           </div>
@@ -40,15 +43,15 @@ const ItemDetail = ({ id, name, price, img, stock, description, sizes, related, 
         {/* Product info */}
         <div className="mx-auto pt-4 pb-16 px-4 lg:pb-24 lg:grid lg:grid-cols-1 lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
-            <h1 className="text-2xl font-bold font-lora tracking-tight text-gray-900 sm:text-3xl">{name}</h1>
+            <h1 className="text-2xl font-bold font-lora tracking-tight text-gray-900 sm:text-3xl">{item.name}</h1>
           </div>
 
           {/* Options */}
           <div className="mt-4 lg:mt-0 lg:row-span-3">
             <h2 className="sr-only">Product information</h2>
-            <p className={sale ? `text-3xl text-brown mt-4 font-poppins flex items-center` : `text-3xl text-dark mt-4 font-poppins`}>
-              ${price}
-              {sale && <span className="text-2xl ml-3 line-through text-dark opacity-60">${oldPrice}</span>}
+            <p className={item.sale ? `text-3xl text-brown mt-4 font-poppins flex items-center` : `text-3xl text-dark mt-4 font-poppins`}>
+              ${item.price}
+              {item.sale && <span className="text-2xl ml-3 line-through text-dark opacity-60">${item.oldPrice}</span>}
             </p>
 
             <div className="mt-8">
@@ -123,11 +126,11 @@ const ItemDetail = ({ id, name, price, img, stock, description, sizes, related, 
                     </Link>
                     :
                     <ItemCount
-                      stock={stock}
+                      stock={item.stock}
                       handleCount={true}
                       onAdd={onAdd}
-                      showCart={showCart}
-
+                      addToCart={addToCart}
+                      item={item}
                     />
 
                 }
@@ -141,10 +144,10 @@ const ItemDetail = ({ id, name, price, img, stock, description, sizes, related, 
             <div className='mt-4'>
               <h3 className="sr-only">Description</h3>
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{description}</p>
+                <p className="text-base text-gray-900">{item.description}</p>
               </div>
 
-              {related.length &&
+              {related.length > 0 &&
 
                 <div className="mt-8">
                   <h3 className='text-lg font-lora text-gold font-semibold'>Related items</h3>

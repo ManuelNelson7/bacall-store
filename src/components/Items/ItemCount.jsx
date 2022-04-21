@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-const ItemCount = ({ stock, initial = 0, handleCount, onAdd, showCart }) => {
+const ItemCount = ({ stock, initial = 0, handleCount, onAdd, addToCart, item }) => {
 
-  const [counter, setcounter] = useState(initial)
+  const [counter , setcounter] = useState(initial)
 
   const increase = () => {
     counter < stock && setcounter(counter + 1)
@@ -24,7 +24,7 @@ const ItemCount = ({ stock, initial = 0, handleCount, onAdd, showCart }) => {
           <button className='p-1 font-bold' onClick={increase}>+</button>
         </div>
 
-        <button onClick={() => onAdd(counter)} className='bg-gold text-white px-3 py-1.5 font-semibold rounded-md w-full text-md'>Add to cart</button>
+        <button onClick={() => addToCart({...item, counter})} className='bg-gold text-white px-3 py-1.5 font-semibold rounded-md w-full text-md'>Add to cart</button>
 
       </div>
     </div>

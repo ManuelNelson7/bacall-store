@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import FullCart from './components/cart/FullCart';
+import CartContextProvider from './components/CartContext';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import Navbar from './components/Navbar/Navbar';
 import Categories from './pages/Categories';
@@ -9,7 +10,8 @@ import Home from './pages/Home';
 
 function App() {
   return (
-    <>
+    <CartContextProvider>
+
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -20,7 +22,8 @@ function App() {
           <Route exact path="/cart" element={<FullCart />} />
         </Routes>
       </BrowserRouter>
-    </>
+
+    </CartContextProvider>
   );
 }
 
