@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import ItemCart from "./ItemCart";
-import productList from "../../utils/productList";
+import { CartContext } from "../CartContext";
 
 const FullCart = () => {
     const [show, setShow] = useState(false);
+
+    let { cart } = useContext(CartContext)
 
     return (
         <div className="bg-white max-w-2xl mx-auto mt-16 px-2 md:px-0 lg:max-w-7xl">
@@ -22,9 +24,12 @@ const FullCart = () => {
                             </Link>
                             <p className="text-3xl font-lora font-semibold text-gold pt-6">Shopping bag</p>
 
-                            <ItemCart product={productList[1]} />
-                            <ItemCart product={productList[8]} />
-                            <ItemCart product={productList[4]} />
+
+                            {cart.map((item) => {
+                                return (
+                                    <ItemCart key={item.id} item={item} />
+                                )
+                            })}
 
                         </div>
                         <div className=" md:w-1/2 w-full bg-primary h-full">

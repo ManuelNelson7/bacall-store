@@ -3,8 +3,7 @@ import { RadioGroup } from '@headlessui/react'
 import ItemCount from './ItemCount'
 import Related from './Related'
 import BreadCrumb from '../BreadCrumb'
-import { Link } from 'react-router-dom'
-import { CartContext } from '../CartContext'
+
 
 
 function classNames(...classes) {
@@ -13,15 +12,6 @@ function classNames(...classes) {
 
 const ItemDetail = ({ item, related, sizes, id }) => {
   const [selectedSize, setSelectedSize] = useState()
-  const [quantity, setQuantity] = useState(0) // quantity of items in the ItemCount
-  const [showCart, setShowCart] = useState(false)
-
-  const { addToCart, removeFromCart, clearCart, buyAll } = useContext(CartContext)
-
-  const onAdd = (number) => {
-    setQuantity(number)
-    number > 0 && setShowCart(true)
-  }
 
   return (
     <div className="bg-white max-w-2xl mx-auto py-16 px-0 sm:py-24 lg:max-w-7xl">
@@ -118,20 +108,11 @@ const ItemDetail = ({ item, related, sizes, id }) => {
 
               <div className='mt-5 w-full'>
                 {
-                  showCart ?
-                    <Link to='/cart'
-                      className='uppercase outline outline-2 mt-6 w-full flex justify-center outline-gold text-gold font-semibold px-4 py-2.5 rounded-md transition-all duration-150 hover:bg-brown hover:text-white hover:outline-brown'
-                    >
-                      Go to the cart
-                    </Link>
-                    :
-                    <ItemCount
-                      stock={item.stock}
-                      handleCount={true}
-                      onAdd={onAdd}
-                      addToCart={addToCart}
-                      item={item}
-                    />
+                  <ItemCount
+                    stock={item.stock}
+                    handleCount={true}
+                    item={item}
+                  />
 
                 }
               </div>

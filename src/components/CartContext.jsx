@@ -7,7 +7,6 @@ const CartContextProvider = ({ children }) => {
 
     const addToCart = (product) => {
         setCart([...cart, product])
-        console.log(cart);
     }
 
     const removeFromCart = (product) => {
