@@ -12,7 +12,8 @@ const ItemCount = ({ stock, initial = 0, handleCount, item }) => {
   const onAdd = (number) => {
     setQuantity(number)
     number > 0 && setShowCart(true)
-    setShowCart && addToCart({ item })
+    setShowCart && addToCart({ ...item, quantity })
+    console.log(`This is the quantity: ${quantity}`)
   }
 
   const increase = () => {

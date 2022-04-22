@@ -8,11 +8,11 @@ const ItemCart = ({ item }) => {
     return (
         <div className="md:flex items-center mt-6 py-8 border-t border-gold">
             <div className="w-1/4">
-                <img src={item.item.img} alt='test' className="h-full w-full object-center object-cover rounded-md" />
+                <img src={item.img} alt='test' className="h-full w-full object-center object-cover rounded-md" />
             </div>
             <div className="md:pl-3 md:w-3/4 font-poppins">
                 <div className="flex items-center justify-between w-full pt-1">
-                    <p className="text-base font-black leading-none text-gray-800">{item.item.name}</p>
+                    <p className="text-base font-black leading-none text-gray-800">{item.name}</p>
                     <select className="py-2 px-2.5 bg-primary rounded-md mr-6 focus:outline-none">
                         <option>1</option>
                         <option>2</option>
@@ -26,7 +26,7 @@ const ItemCart = ({ item }) => {
                     <div className="flex itemms-center">
                         <p onClick={() => removeFromCart(item)} className="text-xs leading-3 underline text-red-500 text-brown cursor-pointer">Remove</p>
                     </div>
-                    <p className="text-base font-black leading-none text-gray-800">${item.item.price}</p>
+                    <p className="text-base font-black leading-none text-gray-800">${item.price}</p>
                 </div>
             </div>
         </div>
