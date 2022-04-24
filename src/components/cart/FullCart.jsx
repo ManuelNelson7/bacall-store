@@ -19,7 +19,7 @@ const FullCart = () => {
     }
 
     const taxes = () => {
-        return (subTotal() * 0.01).toFixed(2)
+        return (subTotal() * 0.01)
     }
 
     let total = () => {
@@ -63,24 +63,24 @@ const FullCart = () => {
                                     <div className="w-full font-poppins text-sm">
                                         <div className="flex items-center justify-between pt-16">
                                             <p className="leading-none font-poppins font-medium text-dark">Subtotal</p>
-                                            <p className="leading-none text-dark">${subTotal()}</p>
+                                            <p className="leading-none text-dark">${subTotal().toFixed(2)}</p>
                                         </div>
                                         <div className="flex items-center justify-between pt-5">
                                             <p className="leading-none font-poppins font-medium text-dark">Shipping</p>
                                             <p className="leading-none text-dark">
-                                                {shipping() === 0 ? "Free" : `$${shipping()}`}
+                                                {shipping() === 0 ? "Free" : `$${shipping().toFixed(2)}`}
                                             </p>
                                         </div>
                                         <div className="flex items-center justify-between pt-5">
                                             <p className="leading-none font-medium text-dark">Tax</p>
-                                            <p className="leading-none  text-dark">${taxes()}</p>
+                                            <p className="leading-none  text-dark">${taxes().toFixed(2)}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="w-full px-20 font-poppins text-sm">
                                     <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
                                         <p className="text-lg leading-normal text-dark">Total</p>
-                                        <p className="text-lg font-semibold leading-normal text-right text-dark">${total()}</p>
+                                        <p className="text-lg font-semibold leading-normal text-right text-dark">${total().toFixed(2)}</p>
                                     </div>
                                     <Link to='checkout' className="uppercase flex justify-center outline outline-2 w-full py-3outline-gold text-gold font-semibold px-4 py-2.5 rounded-md transition-all duration-150 hover:bg-brown hover:text-white hover:outline-brown">
                                         Checkout
