@@ -5,15 +5,14 @@ export const CartContext = createContext();
 const CartContextProvider = ({ children }) => {
     const [cart, setCart] = useState([])
 
-    const addToCart = (product, quantity) => {
-        const indexProduct = cart.findIndex((cartItem) => cartItem.id === product.id);
-        if (indexProduct !== -1) {
-            const newCart = [...cart];
-            newCart[indexProduct].quantity = newCart[indexProduct].quantity + product.quantity;
-            setCart(newCart);
+    const addToCart = (product) => {
+        const item = cart.find(item => item.id === product.id)
+        if (item) {
+            item.quantity += 1
+            setCart([...cart])
+        } else {
+            setCart([...cart, { ...product}])
         }
-        setCart([...cart, product])
-        console.log(cart)
     }
 
     const removeFromCart = (product) => {

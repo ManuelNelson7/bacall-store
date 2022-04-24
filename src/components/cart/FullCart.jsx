@@ -4,9 +4,30 @@ import ItemCart from "./ItemCart";
 import { CartContext } from "../CartContext";
 
 const FullCart = () => {
-    const [show, setShow] = useState(false);
+
 
     let { cart } = useContext(CartContext)
+
+    let subTotal = () => {
+        return cart.reduce((acc, item) => {
+            return acc + item.price * item.quantity
+        }, 0)
+    }
+
+    let shipping = () => {
+        return subTotal() > 150 ? 0 : 30
+    }
+
+    const taxes = () => {
+        return (subTotal() * 0.01).toFixed(2)
+    }
+
+    let total = () => {
+        return subTotal() > 0 ?
+            subTotal() + shipping() + parseFloat(taxes()) :
+            0
+    }
+
 
     return (
         <div className="bg-white max-w-2xl mx-auto mt-16 px-2 md:px-0 lg:max-w-7xl">
@@ -15,7 +36,7 @@ const FullCart = () => {
                 <div className="w-full overflow-x-hidden transition ease-in-out duration-700" id="checkout">
                     <div className="flex md:flex-row flex-col justify-center" id="cart">
                         <div className="lg:justify-start w-full pl-4 pr-10 md:pr-11 md:pl-11 md:py-12 py-8 bg-white overflow-x-hidden h-screen" id="scroll">
-                            <Link to='/categories' className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer" onClick={() => setShow(!show)}>
+                            <Link to='/categories' className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width={16} height={16} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <polyline points="15 6 9 12 15 18" />
@@ -23,6 +44,8 @@ const FullCart = () => {
                                 <p className="text-sm pl-2 leading-none">Keep shopping</p>
                             </Link>
                             <p className="text-3xl font-lora font-semibold text-gold pt-6">Shopping bag</p>
+
+                            {cart.length === 0 && <p to="/categories" className="text-md font-lora font-medium text-dark pt-6">No items in the cart yet, <Link to='/categories' className="underline text-brown">keep shopping</Link></p>}
 
 
                             {cart.map((item) => {
@@ -40,22 +63,24 @@ const FullCart = () => {
                                     <div className="w-full font-poppins text-sm">
                                         <div className="flex items-center justify-between pt-16">
                                             <p className="leading-none font-poppins font-medium text-dark">Subtotal</p>
-                                            <p className="leading-none text-dark">$9,000</p>
+                                            <p className="leading-none text-dark">${subTotal()}</p>
                                         </div>
                                         <div className="flex items-center justify-between pt-5">
                                             <p className="leading-none font-poppins font-medium text-dark">Shipping</p>
-                                            <p className="leading-none text-dark">$30</p>
+                                            <p className="leading-none text-dark">
+                                                {shipping() === 0 ? "Free" : `$${shipping()}`}
+                                            </p>
                                         </div>
                                         <div className="flex items-center justify-between pt-5">
                                             <p className="leading-none font-medium text-dark">Tax</p>
-                                            <p className="leading-none  text-dark">$35</p>
+                                            <p className="leading-none  text-dark">${taxes()}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="w-full px-20 font-poppins text-sm">
                                     <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
                                         <p className="text-lg leading-normal text-dark">Total</p>
-                                        <p className="text-lg font-semibold leading-normal text-right text-dark">$10,240</p>
+                                        <p className="text-lg font-semibold leading-normal text-right text-dark">${total()}</p>
                                     </div>
                                     <Link to='checkout' className="uppercase flex justify-center outline outline-2 w-full py-3outline-gold text-gold font-semibold px-4 py-2.5 rounded-md transition-all duration-150 hover:bg-brown hover:text-white hover:outline-brown">
                                         Checkout
