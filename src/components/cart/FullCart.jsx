@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import ItemCart from "./ItemCart";
 import { CartContext } from "../CartContext";
+import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XIcon } from '@heroicons/react/solid'
 
 const FullCart = () => {
 
@@ -30,70 +31,67 @@ const FullCart = () => {
 
 
     return (
-        <div className="bg-white max-w-2xl mx-auto mt-16 px-2 md:px-0 lg:max-w-7xl">
+        <div className="bg-white">
+            <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                <h1 className="text-3xl font-lora font-semibold text-gold pt-10">Shopping Cart</h1>
+                <form className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
+                    <section aria-labelledby="cart-heading" className="lg:col-span-7">
+                        <h2 id="cart-heading" className="sr-only">
+                            Items in your shopping cart
+                        </h2>
 
-            <div className="w-full h-full overflow-x-hidden flex justify-center" id="chec-div">
-                <div className="w-full overflow-x-hidden transition ease-in-out duration-700" id="checkout">
-                    <div className="flex md:flex-row flex-col justify-center" id="cart">
-                        <div className="lg:justify-start w-full pl-4 pr-10 md:pr-11 md:pl-11 md:py-12 py-8 bg-white overflow-x-hidden h-screen" id="scroll">
-                            <Link to='/categories' className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width={16} height={16} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <polyline points="15 6 9 12 15 18" />
-                                </svg>
-                                <p className="text-sm pl-2 leading-none">Keep shopping</p>
-                            </Link>
-                            <p className="text-3xl font-lora font-semibold text-gold pt-6">Shopping bag</p>
+                        <ul>
+                            {cart.map((item) => (
+                                <ItemCart key={item.id} item={item} />
+                            ))}
+                        </ul>
+                    </section>
 
-                            {cart.length === 0 && <p to="/categories" className="text-md font-lora font-medium text-dark pt-6">No items in the cart yet, <Link to='/categories' className="underline text-brown">keep shopping</Link></p>}
+                    {/* Order summary */}
+                    <section
+                        aria-labelledby="summary-heading"
+                        className="mt-16 bg-gray-50 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5"
+                    >
+                        <h2 id="summary-heading" className="text-lg font-medium text-gray-900 font-lora ">
+                            Order summary
+                        </h2>
 
-
-                            {cart.map((item) => {
-                                return (
-                                    <ItemCart key={item.id} item={item} />
-                                )
-                            })}
-
-                        </div>
-                        <div className=" md:w-1/2 w-full bg-primary h-full">
-                            <div className="flex flex-col items-center md:h-screen py-20 justify-between">
-                                <div className="w-full px-20 flex flex-col items-center">
-                                    <p className="text-3xl font-lora text-gold font-semibold">Summary</p>
-
-                                    <div className="w-full font-poppins text-sm">
-                                        <div className="flex items-center justify-between pt-16">
-                                            <p className="leading-none font-poppins font-medium text-dark">Subtotal</p>
-                                            <p className="leading-none text-dark">${subTotal().toFixed(2)}</p>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-5">
-                                            <p className="leading-none font-poppins font-medium text-dark">Shipping</p>
-                                            <p className="leading-none text-dark">
-                                                {shipping() === 0 ? "Free" : `$${shipping().toFixed(2)}`}
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-5">
-                                            <p className="leading-none font-medium text-dark">Tax</p>
-                                            <p className="leading-none  text-dark">${taxes().toFixed(2)}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-full px-20 font-poppins text-sm">
-                                    <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
-                                        <p className="text-lg leading-normal text-dark">Total</p>
-                                        <p className="text-lg font-semibold leading-normal text-right text-dark">${total().toFixed(2)}</p>
-                                    </div>
-                                    <Link to='checkout' className="uppercase flex justify-center outline outline-2 w-full py-3outline-gold text-gold font-semibold px-4 py-2.5 rounded-md transition-all duration-150 hover:bg-brown hover:text-white hover:outline-brown">
-                                        Checkout
-                                    </Link>
-                                </div>
+                        <dl className="mt-6 space-y-4 font-poppins">
+                            <div className="flex items-center justify-between">
+                                <dt className="text-sm text-gray-600">Subtotal</dt>
+                                <dd className="text-sm font-medium text-gray-900">${subTotal().toFixed(2)}</dd>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
+                                <dt className="flex items-center text-sm text-gray-600">
+                                    <span>Shipping</span>
+                                </dt>
+                                <dd className="text-sm font-medium text-gray-900d"> {shipping() === 0 ? "Free" : `$${shipping().toFixed(2)}`}</dd>
+                            </div>
+                            <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
+                                <dt className="flex text-sm text-gray-600">
+                                    <span>Tax estimate</span>
+                                </dt>
+                                <dd className="text-sm font-medium text-gray-900">${taxes().toFixed(2)}</dd>
+                            </div>
+                            <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
+                                <dt className="text-base font-medium text-gray-900 text-gold">Order total</dt>
+                                <dd className="text-base font-medium text-gray-900">${total().toFixed(2)}</dd>
+                            </div>
+                        </dl>
 
+                        <div className="mt-6">
+                            <button
+                                type="submit"
+                                className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                            >
+                                Checkout
+                            </button>
+                        </div>
+                    </section>
+                </form>
+            </div>
         </div>
-    );
+    )
 }
 
 export default FullCart;

@@ -39,7 +39,7 @@ export default function Categories() {
     }
 
     return (
-        <div w-container max-w-7xl px-4 className="bg-white">
+        <div className="bg-white">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
