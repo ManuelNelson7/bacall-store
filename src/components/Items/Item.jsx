@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom'
 
 const Item = ({ id, name, category, price, img, stock, oldPrice, sale }) => {
 
-    const [handleCount, setHandleCount] = useState(false)
-
     return (
-        <div onMouseEnter={() => setHandleCount(true)} onMouseLeave={() => setHandleCount(false)} key={id} className={handleCount ? `group relative` : `pb-20`}>
+        <div key={id}>
             <Link to={`/item/${id}`} className='hover:opacity-75'>
                 <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
 
@@ -34,7 +32,6 @@ const Item = ({ id, name, category, price, img, stock, oldPrice, sale }) => {
                 </div>
             </Link>
 
-            <ItemCount stock={stock} handleCount={handleCount} />
         </div>
     )
 }

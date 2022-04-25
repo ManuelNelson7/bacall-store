@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../CartContext'
 
-const ItemCount = ({ stock, initial = 0, handleCount, item }) => {
+const ItemCount = ({ stock, initial = 0, item }) => {
   const [counter, setcounter] = useState(initial)
   const [quantity, setQuantity] = useState(0) // quantity of items in the ItemCount
   const [showCart, setShowCart] = useState(false)
@@ -24,7 +24,7 @@ const ItemCount = ({ stock, initial = 0, handleCount, item }) => {
 
 
   return (
-    <div className={!handleCount && `hidden`}>
+    <>
 
       {!showCart ?
 
@@ -47,7 +47,9 @@ const ItemCount = ({ stock, initial = 0, handleCount, item }) => {
         >
           Go to the cart
         </Link>}
-    </div>
+    </>
+
+
 
   )
 }

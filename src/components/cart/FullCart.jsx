@@ -16,7 +16,7 @@ const FullCart = () => {
     }
 
     let shipping = () => {
-        return subTotal() > 150 ? 0 : 30
+        return subTotal() > 150 ? 0 : 20
     }
 
     const taxes = () => {
@@ -33,7 +33,7 @@ const FullCart = () => {
     return (
         <div className="bg-white">
             <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                <h1 className="text-3xl font-lora font-semibold text-gold pt-10">Shopping Cart</h1>
+                <h1 className="text-2xl font-lora font-semibold text-gold pt-10">Shopping Cart</h1>
                 <form className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
                     <section aria-labelledby="cart-heading" className="lg:col-span-7">
                         <h2 id="cart-heading" className="sr-only">
@@ -80,12 +80,9 @@ const FullCart = () => {
                         </dl>
 
                         <div className="mt-6">
-                            <button
-                                type="submit"
-                                className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-                            >
+                            <Link to='checkout' className="uppercase flex justify-center outline outline-2 w-full py-3outline-gold text-gold font-semibold px-4 py-2.5 rounded-md transition-all duration-150 hover:bg-gold hover:text-white">
                                 Checkout
-                            </button>
+                            </Link>
                         </div>
                     </section>
                 </form>
