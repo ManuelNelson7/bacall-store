@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid'
 import ItemListContainer from '../components/ItemListContainer'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { categories } from '../utils/categories'
 
 const sortOptions = [
@@ -84,7 +84,7 @@ export default function Categories() {
                                     <ul className="font-medium text-gray-900 px-2 py-3">
                                         {categories.map((category) => (
                                             <li key={category.name}>
-                                                <Link to='/:name' className="block px-2 py-3">
+                                                <Link to={`/categories/${category.id}`} className="block px-2 py-3">
                                                     {category.name}
                                                 </Link>
                                             </li>

@@ -1,6 +1,7 @@
 import Item from "./Item"
 
 const ItemList = ({ products }) => {
+
   return (
     <div className="grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
       {products.map((product) => (

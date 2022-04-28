@@ -11,9 +11,9 @@ const override = css`
 function Spinner() {
 
   return (
-    <div className="flex flex-col items-center mt-64">
+    <div className="flex flex-col items-center mt-20">
       <BeatLoader color='#928656' css={override} size={100} />
-      <p className="mt-2 text-gold font-poppins text-md font-semibold">Loading this item...</p>
+      <p className="mt-2 text-gold font-poppins text-md font-semibold">Loading...</p>
     </div>
 
   );

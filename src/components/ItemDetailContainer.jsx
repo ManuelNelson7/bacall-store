@@ -4,6 +4,7 @@ import productList from '../utils/productList'
 import ItemDetail from './Items/ItemDetail'
 import { useParams } from 'react-router-dom'
 import Spinner from './Spinner'
+import { collection, doc, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore'
 
 const ItemDetailContainer = () => {
     const { id } = useParams()
@@ -14,23 +15,33 @@ const ItemDetailContainer = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        customFetch(1, productList.find(product => product.id == id))
-            .then(res => setItem(res))
-            .catch(error => console.log(error))
+        const db = getFirestore();
+        const itemRef = doc(db, 'products', id)
+
+        getDoc(itemRef)
+            .then(res => {
+                setItem({ id: res.id, ...res.data() })
+            })
     }, [id])
 
-    //This is a solution to get the sizes and related items to load after the item has been loaded
-    useEffect(() => {
-        if (item && productList) {
-            const related = (productList.filter(product => product.category === item.category && product.id !== item.id))
-            setRelated(related);
-            setSizes(item.sizes);
-        }
-    }, [item]);
 
     useEffect(() => {
-        setTimeout(() => setLoading(false), 100);
-    }, [item]);
+        const db = getFirestore();
+        let itemsRef;
+        console.log(item)
+
+        if (item.categoryId !== undefined) {
+            itemsRef = query(collection(db, 'products'), where('categoryId', '==', item.categoryId));
+            getDocs(itemsRef)
+                .then(res => {
+                    setRelated(res.docs.slice(0,4).map((related) => ({ id: related.id, ...related.data() })
+                    ))
+                })
+                .then(() => console.log(item.name))
+                .finally(() => setLoading(false))
+        }
+
+    }, [item])
 
     return (
         <>
@@ -42,7 +53,7 @@ const ItemDetailContainer = () => {
                             item={item}
                             related={related}
                             sizes={sizes}
-                            id = {id}
+                            id={id}
                         /> </> : <div>Item does not exist!</div>)}
         </>
     )
