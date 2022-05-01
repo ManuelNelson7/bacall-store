@@ -276,14 +276,6 @@ export default function Navbar() {
                                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                 </div>
 
-                                {/* Search */}
-                                <div className="flex lg:ml-6">
-
-                                    <span className="sr-only">Search</span>
-                                    <SearchIcon className="w-6 h-6" aria-hidden="true" />
-
-                                </div>
-
                                 {/* Cart */}
                                 <ShoppingCart />
                             </div>

@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid'
@@ -32,11 +32,13 @@ function classNames(...classes) {
 export default function Categories() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [priceFilter, setpriceFilter] = useState('default')
-    const [saleFilter, setSaleFilter] = useState('checked')
+    const [saleFilter, setSaleFilter] = useState(false)
 
-    const handleCheckboxChange = (event) => {
-        console.log(event.currentTarget.value)
+    
+    const handleSale = (event) => {
+        setSaleFilter(event.target.checked ? true : false)
     }
+
 
     return (
         <div className="bg-white">
@@ -284,7 +286,7 @@ export default function Categories() {
                                             type="checkbox"
                                             defaultChecked={false}
                                             className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                            onChange={() => handleCheckboxChange()}
+                                            onChange={(e) => handleSale(e)}
                                         />
                                         <label
                                             htmlFor={`filter-sale`}

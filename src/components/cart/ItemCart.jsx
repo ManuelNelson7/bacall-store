@@ -3,11 +3,11 @@ import { CartContext } from '../CartContext'
 
 
 const ItemCart = ({ item }) => {
-    let { cart, removeFromCart } = useContext(CartContext)
+    let { removeFromCart } = useContext(CartContext)
 
     return (
         <div className="md:flex items-center mt-6 py-8 border-t border-gold">
-            <div className="w-1/4">
+            <div className="md:w-1/4 w-1/2">
                 <img src={item.img} alt='test' className="h-full w-full object-center object-cover rounded-md" />
             </div>
             <div className="md:pl-3 md:w-3/4 font-poppins">
@@ -17,10 +17,9 @@ const ItemCart = ({ item }) => {
                         {item.quantity}
                     </p>
                 </div>
-                <p className="text-xs leading-3 text-gray-600 pt-2">Size: M</p>
-                <p className="text-xs leading-3 text-gray-600 py-4">Color: Black</p>
-                <p className="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
-                <div className="flex items-center justify-between pt-5 pr-6">
+                <p className="text-xs leading-3 text-gray-600 pt-2">{( `Size: ${item.size}`)}</p>
+                <p className="text-xs leading-3 text-gray-600 py-4">Category: {item.categoryId}</p>
+                <div className="flex items-center justify-between pt-3 pr-6">
                     <div className="flex itemms-center">
                         <p onClick={() => removeFromCart(item)} className="text-xs leading-3 underline text-red-500 text-brown cursor-pointer">Remove</p>
                     </div>

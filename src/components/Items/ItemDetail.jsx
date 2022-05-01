@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import ItemCount from './ItemCount'
 import Related from './Related'
@@ -10,8 +10,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const ItemDetail = ({ item, related, sizes, id }) => {
-  const [selectedSize, setSelectedSize] = useState()
+const ItemDetail = ({ item, related, id }) => {
+  const [selectedSize, setSelectedSize] = useState([])
+
+  useEffect(() => {
+    console.log(selectedSize)
+  }, [selectedSize])
 
   return (
     <div className="bg-white max-w-2xl mx-auto py-16 px-0 sm:py-24 lg:max-w-7xl">
@@ -52,15 +56,14 @@ const ItemDetail = ({ item, related, sizes, id }) => {
                   <h3 className="text-md text-gray-900 opacity-90 font-medium font-poppins">Size</h3>
                 </div>
 
-                <RadioGroup value={selectedSize} className="mt-2">
+                <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-2">
                   <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
                   <div className="grid grid-cols-3 gap-4 sm:grid-cols-8 lg:grid-cols-3">
-                    {sizes.map((size) => (
+                    {item.sizes.map((size) => (
                       <RadioGroup.Option
                         key={size.name}
-                        value={size}
+                        value={size.name}
                         disabled={!size.inStock}
-                        onClick={() => setSelectedSize(size)}
                         className={({ active }) =>
                           classNames(
                             size.inStock
@@ -112,6 +115,7 @@ const ItemDetail = ({ item, related, sizes, id }) => {
                     stock={item.stock}
                     handleCount={true}
                     item={item}
+                    size={selectedSize}
                   />
 
                 }

@@ -11,7 +11,6 @@ const ItemDetailContainer = () => {
 
     const [item, setItem] = useState({})
     const [related, setRelated] = useState([])
-    const [sizes, setSizes] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -28,7 +27,6 @@ const ItemDetailContainer = () => {
     useEffect(() => {
         const db = getFirestore();
         let itemsRef;
-        console.log(item)
 
         if (item.categoryId !== undefined) {
             itemsRef = query(collection(db, 'products'), where('categoryId', '==', item.categoryId));
@@ -37,7 +35,6 @@ const ItemDetailContainer = () => {
                     setRelated(res.docs.slice(0,4).map((related) => ({ id: related.id, ...related.data() })
                     ))
                 })
-                .then(() => console.log(item.name))
                 .finally(() => setLoading(false))
         }
 
@@ -52,7 +49,6 @@ const ItemDetailContainer = () => {
                         <ItemDetail
                             item={item}
                             related={related}
-                            sizes={sizes}
                             id={id}
                         /> </> : <div>Item does not exist!</div>)}
         </>

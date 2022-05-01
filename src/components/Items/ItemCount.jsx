@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../CartContext'
 
-const ItemCount = ({ stock, initial = 0, item }) => {
+const ItemCount = ({ stock, initial = 0, item, size }) => {
   const [counter, setcounter] = useState(initial)
   const [quantity, setQuantity] = useState(0) // quantity of items in the ItemCount
   const [showCart, setShowCart] = useState(false)
@@ -11,7 +11,7 @@ const ItemCount = ({ stock, initial = 0, item }) => {
 
   const onAdd = (number) => {
     number > 0 && setShowCart(true)
-    setShowCart && addToCart({ ...item, quantity: number })
+    setShowCart && addToCart({ ...item, quantity: number, size })
   }
 
   const increase = () => {
