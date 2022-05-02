@@ -3,10 +3,26 @@ import { AppContext } from "../components/AppContext"
 import { TrashIcon } from '@heroicons/react/solid'
 import { Link } from "react-router-dom"
 import { useFormik } from "formik"
+import { addDoc, collection, getFirestore } from "firebase/firestore"
 
 
 const Checkout = () => {
     let { cart, subTotal, shipping, taxes, total, removeFromCart } = useContext(AppContext)
+
+    const sendOrder = () => {
+        const order = {
+            buyer: { name: "Manuel", email: "manuelnelson148@gmail.com", phone: "123456789", address: "123 Main St", apartment: "Apt. 1" },
+            items: cart,
+            total: total,
+        };
+        const db = getFirestore()
+        
+        const ordersCollection = collection(db, "orders");
+
+        addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
+    }
+
+    sendOrder()
 
     const validate = values => {
         const errors = {}
@@ -47,6 +63,8 @@ const Checkout = () => {
         <div className="bg-white pt-10">
             <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 <h2 className="sr-only">Checkout</h2>
+
+                <button onClick={() => sendOrder()} className="bg-gold mt-6">Submit</button>
 
                 <form onSubmit={formik.handleSubmit} className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
                     <div>
