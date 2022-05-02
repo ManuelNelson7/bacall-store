@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CartContext } from '../CartContext'
+import { AppContext } from '../AppContext'
 
 const ItemCount = ({ stock, initial = 0, item, size }) => {
   const [counter, setcounter] = useState(initial)
   const [quantity, setQuantity] = useState(0) // quantity of items in the ItemCount
   const [showCart, setShowCart] = useState(false)
 
-  const { addToCart } = useContext(CartContext)
+  const { addToCart } = useContext(AppContext)
 
   const onAdd = (number) => {
     number > 0 && setShowCart(true)

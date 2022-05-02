@@ -1,9 +1,20 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useContext } from 'react'
 
-export const CartContext = createContext();
+export const AppContext = createContext();
 
-const CartContextProvider = ({ children }) => {
+export const useApp = () => {
+    const context = useContext(AppContext)
+    return context
+}
+
+const AppContextProvider = ({ children }) => {
     const [cart, setCart] = useState([])
+
+
+    const user = {
+        login: true
+    }
+
 
     const addToCart = (product) => {
         const item = cart.find(item => item.id === product.id)
@@ -60,7 +71,8 @@ const CartContextProvider = ({ children }) => {
     }
 
     return (
-        <CartContext.Provider value={{
+        <AppContext.Provider value={{
+            user,
             cart,
             addToCart,
             removeFromCart,
@@ -73,9 +85,9 @@ const CartContextProvider = ({ children }) => {
             total
         }}>
             {children}
-        </CartContext.Provider>
+        </AppContext.Provider>
     )
 
 }
 
-export default CartContextProvider
+export default AppContextProvider

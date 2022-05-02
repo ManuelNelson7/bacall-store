@@ -1,12 +1,12 @@
 import React, { useContext } from "react"
-import { CartContext } from "../components/CartContext"
+import { AppContext } from "../components/AppContext"
 import { TrashIcon } from '@heroicons/react/solid'
 import { Link } from "react-router-dom"
 import { useFormik } from "formik"
 
 
 const Checkout = () => {
-    let { cart, subTotal, shipping, taxes, total, removeFromCart } = useContext(CartContext)
+    let { cart, subTotal, shipping, taxes, total, removeFromCart } = useContext(AppContext)
 
     const validate = values => {
         const errors = {}

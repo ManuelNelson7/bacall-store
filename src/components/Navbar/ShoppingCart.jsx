@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { ShoppingBagIcon } from '@heroicons/react/outline'
 import { Link } from 'react-router-dom'
-import { CartContext } from '../CartContext'
+import { AppContext } from '../AppContext'
 
 const ShoppingCart = () => {
-    let { totalQuantity } = useContext(CartContext)
+    let { totalQuantity } = useContext(AppContext)
 
     return (
         <div className="ml-4 flow-root lg:ml-6">

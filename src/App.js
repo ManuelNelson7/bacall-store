@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CartContextProvider from './components/CartContext';
-import Footer from './components/Footer';
+import AppContextProvider from './components/AppContext';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import Layout from './components/Layout';
-import Navbar from './components/Navbar/Navbar';
 import Categories from './pages/Categories';
 import Checkout from './pages/Checkout';
 import FullCart from './pages/FullCart';
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Signin from './pages/Signin';
 
 
 function App() {
   return (
-    <CartContextProvider>
+    <AppContextProvider>
 
       <BrowserRouter>
         <Layout>
@@ -25,12 +25,14 @@ function App() {
             <Route exact path="/categories/:id" element={<Categories />} />
             <Route exact path="/cart" element={<FullCart />} />
             <Route exact path="/checkout" element={<Checkout />} />
+            <Route exact path="/sign-in" element={<Signin />} />
+            <Route exact path="/login" element={<Login />} />
           </Routes>
         </Layout>
 
       </BrowserRouter>
 
-    </CartContextProvider>
+    </AppContextProvider>
   );
 }
 

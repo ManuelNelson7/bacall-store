@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import ItemCart from "../components/cart/ItemCart";
-import { CartContext } from "../components/CartContext";
+import { AppContext } from "../components/AppContext";
 
 const FullCart = () => {
-    let { cart, subTotal, shipping, taxes, total } = useContext(CartContext)
+    let { cart, subTotal, shipping, taxes, total } = useContext(AppContext)
 
     return (
         <div className="bg-white">

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { CartContext } from '../CartContext'
+import { AppContext } from '../AppContext'
 
 
 const ItemCart = ({ item }) => {
-    let { removeFromCart } = useContext(CartContext)
+    let { removeFromCart } = useContext(AppContext)
 
     return (
         <div className="md:flex items-center mt-6 py-8 border-t border-gold">
