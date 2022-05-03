@@ -70,6 +70,10 @@ const AppContextProvider = ({ children }) => {
             0
     }
 
+    const cleanCart = () => {
+        setCart([])
+    }
+
     return (
         <AppContext.Provider value={{
             user,
@@ -82,7 +86,8 @@ const AppContextProvider = ({ children }) => {
             subTotal,
             shipping,
             taxes,
-            total
+            total,
+            cleanCart
         }}>
             {children}
         </AppContext.Provider>

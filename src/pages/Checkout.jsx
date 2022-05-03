@@ -1,28 +1,68 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { AppContext } from "../components/AppContext"
 import { TrashIcon } from '@heroicons/react/solid'
 import { Link } from "react-router-dom"
 import { useFormik } from "formik"
-import { addDoc, collection, getFirestore } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, getFirestore, serverTimestamp, writeBatch } from "firebase/firestore"
 
 
 const Checkout = () => {
-    let { cart, subTotal, shipping, taxes, total, removeFromCart } = useContext(AppContext)
+    let { cart, subTotal, shipping, taxes, total, removeFromCart, cleanCart } = useContext(AppContext)
 
+    const [checkoutId, setCheckoutId] = useState("");
+    const [cartBag, setCartBag] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [email, setEmail] = useState("")
+    const [name, setName] = useState("")
+    const [address, setAddress] = useState("")
+    const [apartment, setApartment] = useState("")
+    const [phone, setPhone] = useState("")
+
+    const order = {
+        buyer: { name, email, phone, address, apartment },
+        items: cart,
+        total: total,
+        date: serverTimestamp()
+    };
     const sendOrder = () => {
-        const order = {
-            buyer: { name: "Manuel", email: "manuelnelson148@gmail.com", phone: "123456789", address: "123 Main St", apartment: "Apt. 1" },
-            items: cart,
-            total: total,
-        };
-        const db = getFirestore()
-        
+        const db = getFirestore();
         const ordersCollection = collection(db, "orders");
+        const orderBatch = writeBatch(db);
+        setLoading(true);
 
-        addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
+
+        cartBag.forEach((item, index) => {
+            let productDoc = doc(db, "products", String(item.id));
+            let prevStock = 0;
+
+
+            /* discounting stock - adding to batch*/
+            getDoc(productDoc).then(snapshot => {
+                if (snapshot.exists()) {
+                    if (snapshot.data().stock) {
+                        prevStock = snapshot.data().stock;
+                    }
+                }
+
+                let newStock = Number(prevStock) - Number(item.count);
+
+                orderBatch.update(productDoc, { stock: newStock });
+
+            }).then(() => {
+                if (cartBag[index] === cartBag[cartBag.length - 1]) {
+                    orderBatch.commit();
+
+                    /* adding order */
+                    addDoc(ordersCollection, order).then(({ id }) => {
+                        setCheckoutId(id);
+                        cleanCart();
+                        setLoading(false);
+                        window.scrollTo(0, 0);
+                    }).catch(err => console.log("Error sending order: " + err))
+                }
+            }).catch((err) => { console.log("Error sending order: " + err) });
+        })
     }
-
-    sendOrder()
 
     const validate = values => {
         const errors = {}
@@ -44,18 +84,22 @@ const Checkout = () => {
         return errors
     }
 
-
     const formik = useFormik({
         initialValues: {
             email: "",
             name: "",
             address: "",
-            apartment: "",
             phone: "",
+            apartment: "",
         },
         validate: validate,
-        onSubmit: values => {
-            console.log(values)
+        onSubmit: sendOrder(),
+        onChange: values => {
+            setEmail(values.email);
+            setName(values.name);
+            setAddress(values.address);
+            setPhone(values.phone);
+            setApartment(values.apartment)
         }
     })
 
@@ -63,8 +107,6 @@ const Checkout = () => {
         <div className="bg-white pt-10">
             <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 <h2 className="sr-only">Checkout</h2>
-
-                <button onClick={() => sendOrder()} className="bg-gold mt-6">Submit</button>
 
                 <form onSubmit={formik.handleSubmit} className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
                     <div>
@@ -230,7 +272,7 @@ const Checkout = () => {
                                     type="submit"
                                     className="w-full bg-gold border border-transparent rounded-lg shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-brown focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-brown-500 transition-all duration-150"
                                 >
-                                    Confirm order
+                                    {loading ? 'Processing...' : 'Confirm order'}
                                 </button>
                             </div>
                         </div>
