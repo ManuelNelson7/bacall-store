@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import customFetch from '../utils/customFetch'
-import productList from '../utils/productList'
 import ItemDetail from './Items/ItemDetail'
 import { useParams } from 'react-router-dom'
 import Spinner from './Spinner'

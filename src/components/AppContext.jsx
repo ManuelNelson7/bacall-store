@@ -1,4 +1,6 @@
 import React, { createContext, useState, useContext } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '..';
 
 export const AppContext = createContext();
 
@@ -9,11 +11,17 @@ export const useApp = () => {
 
 const AppContextProvider = ({ children }) => {
     const [cart, setCart] = useState([])
-
+    const [userEmail, setUserEmail] = useState('')
 
     const user = {
         login: true
     }
+
+    const modifyEmail = (email) => {
+        setUserEmail(email)
+    }
+
+    const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
 
     const addToCart = (product) => {
@@ -87,7 +95,10 @@ const AppContextProvider = ({ children }) => {
             shipping,
             taxes,
             total,
-            cleanCart
+            cleanCart,
+            userEmail,
+            modifyEmail,
+            signup
         }}>
             {children}
         </AppContext.Provider>

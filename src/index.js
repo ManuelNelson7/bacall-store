@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { initializeApp } from "firebase/app";
 import App from './App';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCA52tWmAIRLPa4YvPiQtbFa5eB3rkmjVc",
@@ -14,6 +15,7 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
+export const auth = getAuth()
 
 ReactDOM.render(
   <React.StrictMode>

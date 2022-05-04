@@ -13,9 +13,6 @@ function classNames(...classes) {
 const ItemDetail = ({ item, related, id }) => {
   const [selectedSize, setSelectedSize] = useState([])
 
-  useEffect(() => {
-    console.log(selectedSize)
-  }, [selectedSize])
 
   return (
     <div className="bg-white max-w-2xl mx-auto py-16 px-0 sm:py-24 lg:max-w-7xl">
