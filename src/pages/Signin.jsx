@@ -1,29 +1,39 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom"
 import { AppContext } from "../components/AppContext"
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
-
-    let {
-        signup,
-    } = useContext(AppContext)
-
     const [user, setUser] = useState({
         email: "",
         password: ""
     });
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [error, setError] = useState("");
+
+    const navigate = useNavigate()
+
+    let { signup, } = useContext(AppContext)
+
 
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        setError("");
         e.preventDefault();
         if (user.password === passwordConfirm) {
-            signup(user.email, user.password);
+            try {
+                await signup(user.email, user.password);
+                navigate('/')
+            } catch (e) {
+                error.code === "auth/email-already-in-use" && setError("Email already in use")
+                error.code === "auth/invalid-email" && setError("Invalid email")
+                error.code === "auth/weak-password" && setError("Password is too weak")
+            }
         } else {
-            alert("Passwords do not match");
+            setError("Passwords do not match")
         }
     }
 
@@ -156,6 +166,8 @@ const Signin = () => {
                                         />
                                     </div>
                                 </div>
+
+                                {error && <div className="text-brown text-sm">{error}</div>}
 
                                 <div>
                                     <button

@@ -1,16 +1,18 @@
 
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, XIcon } from '@heroicons/react/outline'
 import { navigation } from './navigation'
 import ShoppingCart from './ShoppingCart'
 import { Link } from 'react-router-dom'
+import { AppContext } from '../AppContext'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+const Navbar = () => {
+    let { user } = useContext(AppContext)
     const [open, setOpen] = useState(false)
 
     return (
@@ -125,9 +127,14 @@ export default function Navbar() {
 
                             <div className="py-6 px-4 space-y-6">
                                 <div className="flow-root">
-                                    <a href="/signin" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
-                                        Sign in
-                                    </a>
+                                    {user === null ? (
+                                        <Link to="/signin" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
+                                            Sign In
+                                        </Link>) :
+                                        (<Link to="/profile" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
+                                            {user.email}
+                                        </Link>)
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -286,3 +293,5 @@ export default function Navbar() {
         </div>
     )
 }
+
+export default Navbar

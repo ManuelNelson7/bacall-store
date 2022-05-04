@@ -1,6 +1,39 @@
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom"
+import { AppContext } from "../components/AppContext"
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    });
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [error, setError] = useState("");
+
+    const navigate = useNavigate()
+
+    let { login } = useContext(AppContext)
+
+
+    const handleChange = ({ target: { name, value } }) => {
+        setUser({ ...user, [name]: value });
+    }
+
+    const handleSubmit = async (e) => {
+        setError("");
+        e.preventDefault();
+        try {
+            await login(user.email, user.password);
+            navigate('/')
+        } catch (e) {
+            e.code === "auth/wrong-password" && setError("Wrong password");
+            e.code === "auth/user-not-found" && setError("User not found");
+        }
+    }
+
+
     return (
         <div className="min-h-screen bg-white flex">
             <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
@@ -78,7 +111,7 @@ const Login = () => {
                         </div>
 
                         <div className="mt-6">
-                            <form action="#" method="POST" className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
                                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                         Email address
@@ -90,6 +123,7 @@ const Login = () => {
                                             type="email"
                                             autoComplete="email"
                                             required
+                                            onChange={handleChange}
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
                                     </div>
@@ -106,6 +140,7 @@ const Login = () => {
                                             type="password"
                                             autoComplete="current-password"
                                             required
+                                            onChange={handleChange}
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
                                     </div>
