@@ -6,14 +6,15 @@ import { useNavigate } from "react-router-dom";
 const Signin = () => {
     const [user, setUser] = useState({
         email: "",
-        password: ""
+        password: "",
+        name: ""
     });
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
 
     const navigate = useNavigate()
 
-    let { signup, } = useContext(AppContext)
+    let { signup } = useContext(AppContext)
 
 
     const handleChange = ({ target: { name, value } }) => {
@@ -25,7 +26,7 @@ const Signin = () => {
         e.preventDefault();
         if (user.password === passwordConfirm) {
             try {
-                await signup(user.email, user.password);
+                await signup(user.email, user.password, user.name);
                 navigate('/')
             } catch (e) {
                 error.code === "auth/email-already-in-use" && setError("Email already in use")
@@ -126,6 +127,23 @@ const Signin = () => {
                                             name="email"
                                             type="email"
                                             autoComplete="email"
+                                            required
+                                            onChange={handleChange}
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                        Full Name
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            autoComplete="name"
                                             required
                                             onChange={handleChange}
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

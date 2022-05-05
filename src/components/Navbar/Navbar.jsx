@@ -1,7 +1,7 @@
 
 import { Fragment, useContext, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { MenuIcon, SearchIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { navigation } from './navigation'
 import ShoppingCart from './ShoppingCart'
 import { Link } from 'react-router-dom'
@@ -127,12 +127,12 @@ const Navbar = () => {
 
                             <div className="py-6 px-4 space-y-6">
                                 <div className="flow-root">
-                                    {user === null ? (
+                                    {!user === null ? (
                                         <Link to="/signin" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
                                             Sign In
                                         </Link>) :
                                         (<Link to="/profile" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
-                                            {user.email}
+                                            Profile
                                         </Link>)
                                     }
                                 </div>
@@ -277,9 +277,14 @@ const Navbar = () => {
 
                             <div className="ml-auto flex items-center">
                                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                    <a href="/sign-in" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
-                                        Sign in
-                                    </a>
+                                    {user === null ? (
+                                        <Link to="/sign-in" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
+                                            Sign In
+                                        </Link>) :
+                                        (<Link to="/profile" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
+                                            {`${user.displayName.substring(0, 9)}...`}
+                                        </Link>)
+                                    }
                                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                 </div>
 

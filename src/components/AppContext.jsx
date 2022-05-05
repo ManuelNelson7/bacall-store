@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth'
 import { auth } from '..';
 
 export const AppContext = createContext();
@@ -11,18 +11,18 @@ export const useApp = () => {
 
 const AppContextProvider = ({ children }) => {
     const [cart, setCart] = useState([])
-    const [userEmail, setUserEmail] = useState('')
     const [user, setUser] = useState(null)
 
     useEffect(() => {
         console.log(user)
     }, [user])
 
-    const modifyEmail = (email) => {
-        setUserEmail(email)
+    const signup = async (email, password, name) => {
+        await createUserWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                updateProfile(auth.currentUser, { displayName: name })
+            })
     }
-
-    const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
     const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
@@ -108,8 +108,6 @@ const AppContextProvider = ({ children }) => {
             taxes,
             total,
             cleanCart,
-            userEmail,
-            modifyEmail,
             signup,
             login,
             logout

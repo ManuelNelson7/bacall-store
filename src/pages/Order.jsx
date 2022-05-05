@@ -6,8 +6,8 @@ const Order = ({ ticket, history, id }) => {
         <main className="bg-white relative lg:min-h-screen">
             <div className="h-80 overflow-hidden lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-12">
                 <img
-                    src="https://tailwindui.com/img/ecommerce-images/confirmation-page-06-hero.jpg"
-                    alt="TODO"
+                    src="https://klimbim2020.files.wordpress.com/2020/05/monroe-bogart-bacall-web.jpg"
+                    alt="Bacall store confirmation"
                     className="h-full w-full object-center object-cover"
                 />
             </div>
