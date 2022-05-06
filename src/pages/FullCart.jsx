@@ -19,7 +19,7 @@ const FullCart = () => {
                         {cart.length === 0 && <p to="/categories" className="text-md font-lora font-medium text-dark pt-6">No items in the cart yet, <Link to='/categories' className="underline text-brown">keep shopping</Link></p>}
 
                         <ul>
-                            {cart.map((item) => (
+                            {cart?.map((item) => (
                                 <ItemCart key={item.id} item={item} />
                             ))}
                         </ul>
