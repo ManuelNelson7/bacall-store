@@ -3,12 +3,19 @@ import Profile from "../pages/Profile";
 import { AppContext } from "./AppContext"
 import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
 import Spinner from './Spinner';
+import { useNavigate } from "react-router-dom";
 
 const ProfileContainer = () => {
-    let { user } = useContext(AppContext)
+    let { user, logout } = useContext(AppContext)
+    const navigate = useNavigate()
 
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
+
+    const loginOut = () => {
+        logout()
+        navigate('/')
+    }
 
     useEffect(() => {
         console.log(orders)
@@ -35,7 +42,7 @@ const ProfileContainer = () => {
                 <Profile
                     orders={orders}
                     user={user}
-
+                    loginOut={loginOut}
                 />
             }
         </>

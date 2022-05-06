@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom";
 import { LogoutIcon } from '@heroicons/react/outline'
 
-const Profile = ({ user, orders }) => {
+const Profile = ({ user, orders, loginOut }) => {
 
     const formatDate = (date) => {
         const dateObj = new Date(date.toDate());
@@ -40,6 +40,7 @@ const Profile = ({ user, orders }) => {
                     <div className="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
                         <button
                             type="button"
+                            onClick={() => loginOut()}
                             className="inline-flex items-center gap-1 justify-center px-4 py-2 text-white font-semibold shadow-sm text-sm rounded-md text-gray-700 bg-brown hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
                         >
                             <LogoutIcon className="h-5 w-5" />

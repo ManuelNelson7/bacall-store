@@ -4,11 +4,6 @@ import { auth } from '..';
 
 export const AppContext = createContext();
 
-export const useApp = () => {
-    const context = useContext(AppContext)
-    return context
-}
-
 const AppContextProvider = ({ children }) => {
     const [cart, setCart] = useState([])
     const [user, setUser] = useState(null)
