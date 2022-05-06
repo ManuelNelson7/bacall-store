@@ -1,19 +1,30 @@
 import React from "react"
-
+import { Link } from "react-router-dom";
+import { LogoutIcon } from '@heroicons/react/outline'
 
 const Profile = ({ user, orders }) => {
+
+    const formatDate = (date) => {
+        const dateObj = new Date(date.toDate());
+        return dateObj.toLocaleDateString();
+    }
+
+    const formatPrice = (price) => {
+        return `$${price.toFixed(2)}`
+    }
+
     return (
         <div className="relative min-h-screen bg-gray-100 mt-10">
 
             <main className="py-10">
                 {/* Page header */}
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
+                <div className="max-w-3xl lg:mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
                     <div className="flex items-center space-x-5">
                         <div className="flex-shrink-0">
                             <div className="relative">
                                 <img
                                     className="h-16 w-16 rounded-full"
-                                    src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+                                    src={user.photoURL ? user.photoURL : "https://upload.wikimedia.org/wikipedia/commons/1/19/Humphrey_Bogart_1940_crop.jpg"}
                                     alt=""
                                 />
                                 <span className="absolute inset-0 shadow-inner rounded-full" aria-hidden="true" />
@@ -25,6 +36,15 @@ const Profile = ({ user, orders }) => {
                                 {user.email}
                             </p>
                         </div>
+                    </div>
+                    <div className="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+                        <button
+                            type="button"
+                            className="inline-flex items-center gap-1 justify-center px-4 py-2 text-white font-semibold shadow-sm text-sm rounded-md text-gray-700 bg-brown hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                        >
+                            <LogoutIcon className="h-5 w-5" />
+                            Logout
+                        </button>
                     </div>
                 </div>
 
@@ -43,34 +63,25 @@ const Profile = ({ user, orders }) => {
                             <div className="space-y-20">
                                 {orders.map((order) => (
                                     <div key={order.id}>
-                                        <h3 className="sr-only">
-                                            Order placed on {order.date}
-                                        </h3>
+
 
                                         <div className="bg-primary rounded-lg py-6 px-4 sm:px-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 lg:space-x-8">
                                             <dl className="divide-y divide-gray-200 space-y-6 text-sm text-gray-600 flex-auto sm:divide-y-0 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-x-6 lg:w-1/2 lg:flex-none lg:gap-x-8">
                                                 <div className="flex justify-between sm:block">
                                                     <dt className="font-medium text-gray-900">Date placed</dt>
                                                     <dd className="sm:mt-1">
-                                                        {order.date}
+                                                        {formatDate(order.date)}
                                                     </dd>
                                                 </div>
                                                 <div className="flex justify-between pt-6 sm:block sm:pt-0">
                                                     <dt className="font-medium text-gray-900">Order number</dt>
                                                     <dd className="sm:mt-1">{order.id}</dd>
                                                 </div>
-                                                <div className="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
+                                                <div className="flex justify-between pt-6 ml-2 font-medium text-gray-900 sm:block sm:pt-0">
                                                     <dt>Total amount</dt>
-                                                    <dd className="sm:mt-1">{order.total}</dd>
+                                                    <dd className="sm:mt-1 font-semibold">{formatPrice(order.total)}</dd>
                                                 </div>
                                             </dl>
-                                            <a
-                                                href={order.invoiceHref}
-                                                className="w-full flex items-center justify-center bg-white mt-6 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:mt-0"
-                                            >
-                                                View Invoice
-                                                <span className="sr-only">for order {order.id}</span>
-                                            </a>
                                         </div>
 
                                         <table className="mt-4 w-full text-gray-500 sm:mt-6">
@@ -93,27 +104,26 @@ const Profile = ({ user, orders }) => {
                                             </thead>
                                             <tbody className="border-b border-gray-200 divide-y divide-gray-200 text-sm sm:border-t">
                                                 {order.items.map((product) => (
-                                                    <tr key={product.id}>
+                                                    <tr key={product.id} className="font-poppins">
                                                         <td className="py-6 pr-8">
                                                             <div className="flex items-center">
                                                                 <img
-                                                                    src={product.imageSrc}
-                                                                    alt={product.imageAlt}
+                                                                    src={product.img}
+                                                                    alt={product.name}
                                                                     className="w-16 h-16 object-center object-cover rounded mr-6"
                                                                 />
                                                                 <div>
                                                                     <div className="font-medium text-gray-900">{product.name}</div>
-                                                                    <div className="mt-1 sm:hidden">{product.price}</div>
+                                                                    <div className="mt-1 sm:hidden">{formatPrice(product.price)}</div>
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="hidden py-6 pr-8 sm:table-cell">{product.price}</td>
+                                                        <td className="hidden py-6 pr-8 sm:table-cell">{formatPrice(product.price)}</td>
                                                         <td className="hidden py-6 pr-8 sm:table-cell">{product.status}</td>
                                                         <td className="py-6 font-medium text-right whitespace-nowrap">
-                                                            <a href={product.href} className="text-indigo-600">
+                                                            <Link to={`/item/${product.id}`} className="text-gold">
                                                                 View<span className="hidden lg:inline"> Product</span>
-                                                                <span className="sr-only">, {product.name}</span>
-                                                            </a>
+                                                            </Link>
                                                         </td>
                                                     </tr>
                                                 ))}
