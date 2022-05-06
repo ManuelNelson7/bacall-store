@@ -4,6 +4,7 @@ import AppContextProvider from './components/AppContext';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import Layout from './components/Layout';
 import OrderContainer from './components/OrderContainer';
+import ProfileContainer from './components/ProfileContainer';
 import Categories from './pages/Categories';
 import Checkout from './pages/Checkout';
 import FullCart from './pages/FullCart';
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/checkout" element={<Checkout />} />
             <Route exact path="/sign-in" element={<Signin />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/profile" element={<ProfileContainer />} />
             <Route exact path="/order/:id" element={<OrderContainer />} />
           </Routes>
         </Layout>
