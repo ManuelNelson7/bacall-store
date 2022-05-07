@@ -1,17 +1,29 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../AppContext'
 
-const ItemCount = ({ stock, initial = 0, item, size }) => {
+const ItemCount = ({ stock, initial = 0, item, size, id }) => {
   const [counter, setcounter] = useState(initial)
   const [quantity, setQuantity] = useState(0) // quantity of items in the ItemCount
   const [showCart, setShowCart] = useState(false)
+  const [error, setError] = useState("")
 
   const { addToCart } = useContext(AppContext)
 
+  useEffect(() => {
+    setShowCart(false)
+    setcounter(initial)
+    console.log(size)
+  }, [id])
+
   const onAdd = (number) => {
-    number > 0 && setShowCart(true)
-    setShowCart && addToCart({ ...item, quantity: number, size })
+    setError("")
+    if (size != "" ) {
+      number > 0 && setShowCart(true)
+      setShowCart && addToCart({ ...item, quantity: number, size })
+    } else {
+      setError("Please select a size")
+    }
   }
 
   const increase = () => {
@@ -47,6 +59,8 @@ const ItemCount = ({ stock, initial = 0, item, size }) => {
         >
           Go to the cart
         </Link>}
+
+      {error && <p className='text-red-500 text-center'>{error}</p>}
     </>
 
 

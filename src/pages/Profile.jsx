@@ -54,7 +54,7 @@ const Profile = ({ user, orders, loginOut }) => {
                         <div className="max-w-xl">
                             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl font-lora text-gold">Order history</h1>
                             <p className="mt-2 text-sm text-gray-500">
-                                Check the status of recent orders, manage returns, and download invoices.
+                                Check the status of recent orders
                             </p>
                         </div>
 
@@ -67,7 +67,7 @@ const Profile = ({ user, orders, loginOut }) => {
 
 
                                         <div className="bg-primary rounded-lg py-6 px-4 sm:px-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 lg:space-x-8">
-                                            <dl className="divide-y divide-gray-200 space-y-6 text-sm text-gray-600 flex-auto sm:divide-y-0 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-x-6 lg:w-1/2 lg:flex-none lg:gap-x-8">
+                                            <dl className="divide-y divide-gray-200 space-y-6 text-sm text-gray-600 flex-auto sm:divide-y-0 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-x-6 lg:flex-none lg:gap-x-8">
                                                 <div className="flex justify-between sm:block">
                                                     <dt className="font-medium text-gray-900">Date placed</dt>
                                                     <dd className="sm:mt-1">
@@ -96,7 +96,7 @@ const Profile = ({ user, orders, loginOut }) => {
                                                         Price
                                                     </th>
                                                     <th scope="col" className="hidden pr-8 py-3 font-normal sm:table-cell">
-                                                        Status
+                                                        Quantity
                                                     </th>
                                                     <th scope="col" className="w-0 py-3 font-normal text-right">
                                                         Info
@@ -114,13 +114,13 @@ const Profile = ({ user, orders, loginOut }) => {
                                                                     className="w-16 h-16 object-center object-cover rounded mr-6"
                                                                 />
                                                                 <div>
-                                                                    <div className="font-medium text-gray-900">{product.name}</div>
+                                                                    <div className="font-medium text-gray-900">{`${product.name} (${product.size})`}</div>
                                                                     <div className="mt-1 sm:hidden">{formatPrice(product.price)}</div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td className="hidden py-6 pr-8 sm:table-cell">{formatPrice(product.price)}</td>
-                                                        <td className="hidden py-6 pr-8 sm:table-cell">{product.status}</td>
+                                                        <td className="hidden py-6 pr-8 sm:table-cell">{product.quantity}</td>
                                                         <td className="py-6 font-medium text-right whitespace-nowrap">
                                                             <Link to={`/item/${product.id}`} className="text-gold">
                                                                 View<span className="hidden lg:inline"> Product</span>

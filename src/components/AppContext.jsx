@@ -89,6 +89,10 @@ const AppContextProvider = ({ children }) => {
         setCart([])
     }
 
+    const formatPrice = (price) => {
+        return `$${price.toFixed(2)}`
+    }
+
     return (
         <AppContext.Provider value={{
             user,
@@ -105,7 +109,8 @@ const AppContextProvider = ({ children }) => {
             cleanCart,
             signup,
             login,
-            logout
+            logout,
+            formatPrice
         }}>
             {children}
         </AppContext.Provider>

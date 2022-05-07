@@ -24,17 +24,26 @@ const Signin = () => {
     const handleSubmit = async (e) => {
         setError("");
         e.preventDefault();
-        if (user.password === passwordConfirm) {
-            try {
-                await signup(user.email, user.password, user.name);
-                navigate('/')
-            } catch (e) {
-                error.code === "auth/email-already-in-use" && setError("Email already in use")
-                error.code === "auth/invalid-email" && setError("Invalid email")
-                error.code === "auth/weak-password" && setError("Password is too weak")
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(user.email) && setError("Invalid email");
+        user.password.length < 6 && setError("Password must be at least 6 characters");
+        user.name.length < 3 && setError("Name must be at least 3 characters");
+        user.password !== passwordConfirm && setError("Passwords do not match");
+        if (user) {
+
+            if (user.password === passwordConfirm && user.password.length > 5 && user.name.length > 2) {
+                try {
+                    await signup(user.email, user.password, user.name);
+                    navigate('/')
+                } catch (e) {
+                    error.code === "auth/email-already-in-use" && setError("Email already in use")
+                    error.code === "auth/invalid-email" && setError("Invalid email")
+                    error.code === "auth/weak-password" && setError("Password is too weak")
+                }
+            } else {
+                setError("Please review your inputs");
             }
         } else {
-            setError("Passwords do not match")
+            setError("Please fill in all fields")
         }
     }
 
@@ -44,7 +53,7 @@ const Signin = () => {
             <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
                 <div className="mx-auto w-full max-w-sm lg:w-96">
                     <div>
-                        <h2 className="mt-6 text-3xl font-extrabold text-gray-900 font-lora">Sign in at bacall store</h2>
+                        <h2 className="mt-6 text-3xl font-extrabold text-gray-900 font-lora">Sign up at bacall store</h2>
                         <p className="mt-2 text-sm text-gray-600">
                             Already have an account?{' '}
                             <Link to="/login" className="underline text-gold font-semibold hover:text-brown duration-150 transition-all">

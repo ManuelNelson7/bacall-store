@@ -278,7 +278,7 @@ const Navbar = () => {
                             <div className="ml-auto flex items-center">
                                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                     {user === null ? (
-                                        <Link to="/sign-in" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
+                                        <Link to="/signup" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
                                             Sign In
                                         </Link>) :
                                         (<Link to="/profile" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">

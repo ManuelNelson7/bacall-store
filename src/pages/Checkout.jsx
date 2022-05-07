@@ -136,7 +136,7 @@ const Checkout = () => {
                                         <div className="mt-2 flex gap-1 text-sm">
                                             <p>Would you like to skip this step?
                                             </p>
-                                            <Link to="/sign-in" className="text-gold font-semibold underline">Log in</Link>
+                                            <Link to="/signup" className="text-gold font-semibold underline">Log in</Link>
                                         </div>
                                     </div>
 

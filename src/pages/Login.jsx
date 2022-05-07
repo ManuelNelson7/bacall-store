@@ -24,12 +24,16 @@ const Login = () => {
     const handleSubmit = async (e) => {
         setError("");
         e.preventDefault();
-        try {
-            await login(user.email, user.password);
-            navigate('/')
-        } catch (e) {
-            e.code === "auth/wrong-password" && setError("Wrong password");
-            e.code === "auth/user-not-found" && setError("User not found");
+        if (user) {
+            try {
+                await login(user.email, user.password);
+                navigate('/')
+            } catch (e) {
+                e.code === "auth/wrong-password" && setError("Wrong password");
+                e.code === "auth/user-not-found" && setError("User not found");
+            }
+        } else {
+            setError("Please fill in all fields");
         }
     }
 
@@ -42,7 +46,7 @@ const Login = () => {
                         <h2 className="mt-6 text-3xl font-extrabold text-gray-900 font-lora">Login at bacall store</h2>
                         <p className="mt-2 text-sm text-gray-600">
                             Don't you have an account?{' '}
-                            <Link to="/login" className="underline text-gold font-semibold hover:text-brown duration-150 transition-all">
+                            <Link to="/signup" className="underline text-gold font-semibold hover:text-brown duration-150 transition-all">
                                 Sign in
                             </Link>
                         </p>
@@ -165,6 +169,8 @@ const Login = () => {
                                         </a>
                                     </div>
                                 </div>
+
+                                {error && <div className="text-brown text-sm">{error}</div>}
 
                                 <div>
                                     <button

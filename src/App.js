@@ -7,6 +7,7 @@ import OrderContainer from './components/OrderContainer';
 import ProfileContainer from './components/ProfileContainer';
 import Categories from './pages/Categories';
 import Checkout from './pages/Checkout';
+import Collections from './pages/Collections';
 import FullCart from './pages/FullCart';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -27,10 +28,11 @@ function App() {
             <Route exact path="/categories/:id" element={<Categories />} />
             <Route exact path="/cart" element={<FullCart />} />
             <Route exact path="/checkout" element={<Checkout />} />
-            <Route exact path="/sign-in" element={<Signin />} />
+            <Route exact path="/signup" element={<Signin />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/profile" element={<ProfileContainer />} />
             <Route exact path="/order/:id" element={<OrderContainer />} />
+            <Route exact path="/collections/:id" element={<Collections />} />
           </Routes>
         </Layout>
 

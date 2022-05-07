@@ -11,7 +11,7 @@ function classNames(...classes) {
 }
 
 const ItemDetail = ({ item, related, id }) => {
-  const [selectedSize, setSelectedSize] = useState([])
+  const [selectedSize, setSelectedSize] = useState("")
 
 
   return (
@@ -113,6 +113,7 @@ const ItemDetail = ({ item, related, id }) => {
                     handleCount={true}
                     item={item}
                     size={selectedSize}
+                    id={id}
                   />
 
                 }
