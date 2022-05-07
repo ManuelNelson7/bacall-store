@@ -58,13 +58,18 @@ const Profile = ({ user, orders, loginOut }) => {
                             </p>
                         </div>
 
-                        <div className="mt-8">
-                            <h2 className="sr-only">Recent orders</h2>
+                        {orders.length > 0 ?
+                            <div className="mt-8">
+                                <p className="text-brown">There isn't any recent order yet</p>
+                            </div>
 
-                            <div className="space-y-20">
-                                {orders.map((order) => (
-                                    <div key={order.id}>
+                            :
+                            <div className="mt-8">
+                                <h2 className="sr-only">Recent orders</h2>
 
+                                <div className="space-y-20">
+                                    {orders.map((order) => (
+                                        <div key={order.id}>
 
                                         <div className="bg-primary rounded-lg py-6 px-4 sm:px-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 lg:space-x-8">
                                             <dl className="divide-y divide-gray-200 space-y-6 text-sm text-gray-600 flex-auto sm:divide-y-0 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-x-6 lg:flex-none lg:gap-x-8">
@@ -127,13 +132,40 @@ const Profile = ({ user, orders, loginOut }) => {
                                                             </Link>
                                                         </td>
                                                     </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                ))}
+                                                </thead>
+                                                <tbody className="border-b border-gray-200 divide-y divide-gray-200 text-sm sm:border-t">
+                                                    {order.items.map((product) => (
+                                                        <tr key={product.id} className="font-poppins">
+                                                            <td className="py-6 pr-8">
+                                                                <div className="flex items-center">
+                                                                    <img
+                                                                        src={product.img}
+                                                                        alt={product.name}
+                                                                        className="w-16 h-16 object-center object-cover rounded mr-6"
+                                                                    />
+                                                                    <div>
+                                                                        <div className="font-medium text-gray-900">{product.name}</div>
+                                                                        <div className="mt-1 sm:hidden">{formatPrice(product.price)}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="hidden py-6 pr-8 sm:table-cell">{formatPrice(product.price)}</td>
+                                                            <td className="hidden py-6 pr-8 sm:table-cell">{product.status}</td>
+                                                            <td className="py-6 font-medium text-right whitespace-nowrap">
+                                                                <Link to={`/item/${product.id}`} className="text-gold">
+                                                                    View<span className="hidden lg:inline"> Product</span>
+                                                                </Link>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        }
+
                     </div>
                 </div>
             </main>
