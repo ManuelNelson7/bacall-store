@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import ItemList from './Items/ItemList'
-import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
+import { getFirestore, getDocs, collection, query, where, orderBy, limit } from 'firebase/firestore'
 import Spinner from './Spinner';
 
-const ItemListContainer = ({ saleFilter }) => {
+const ItemListContainer = ({ saleFilter, priceFilter }) => {
 
     const { id } = useParams()
 
@@ -17,12 +17,19 @@ const ItemListContainer = ({ saleFilter }) => {
 
         if (!id) {
 
-            !saleFilter && (itemsRef = collection(db, 'products'));
+            !saleFilter && priceFilter === 'default' && (itemsRef = collection(db, 'products'));
+            !saleFilter && priceFilter === 'low' && (itemsRef = query(collection(db, 'products'), orderBy('price', 'asc')));
+            !saleFilter && priceFilter === 'high' && (itemsRef = query(collection(db, 'products'), orderBy('price', 'desc')));
+
             saleFilter && (itemsRef = query(collection(db, 'products'), where('sale', '==', true)))
 
+
         } else {
-            !saleFilter && (itemsRef = query(collection(db, 'products'), where('categoryId', '==', id)));
+            !saleFilter && priceFilter === 'default' && (itemsRef = query(collection(db, 'products'), where('categoryId', '==', id)));
+            !saleFilter && priceFilter === 'low' && (itemsRef = query(collection(db, 'products'), where('categoryId', '==', id), orderBy('price', 'asc')));
+            !saleFilter && priceFilter === 'high' && (itemsRef = query(collection(db, 'products'), where('categoryId', '==', id), orderBy('price', 'desc')));
             saleFilter && (itemsRef = query(collection(db, 'products'), where('categoryId', '==', id), where('sale', '==', true)))
+
         }
 
         getDocs(itemsRef)
@@ -32,7 +39,7 @@ const ItemListContainer = ({ saleFilter }) => {
             })
             .finally(() => setLoading(false))
 
-    }, [id, saleFilter])
+    }, [id, saleFilter, priceFilter])
 
 
     return (

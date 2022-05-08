@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react"
-import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
-import Spinner from '../Spinner';
+import React from "react"
 import { Link } from "react-router-dom";
 
 const PreviewCategories = ({ categories }) => {
@@ -11,7 +9,7 @@ const PreviewCategories = ({ categories }) => {
             <div className="py-16 sm:py-24 xl:max-w-7xl xl:mx-auto xl:px-8">
                 <div className="px-4 sm:px-6 sm:flex sm:items-center -mt-2 sm:justify-between lg:px-8 xl:px-0">
                     <h2 className="text-2xl font-extrabold font-lora text-gray-900">Shop by Category</h2>
-                    <Link to="/categories" className="hidden text-sm font-semibold text-gold hover:text-brown transition-all duration-150 sm:block">
+                    <Link to="/categories" className="hidden text-sm font-semibold text-gold font-poppins hover:text-brown transition-all duration-150 sm:block">
                         Browse all categories<span aria-hidden="true"> &rarr;</span>
                     </Link>
                 </div>
@@ -42,9 +40,9 @@ const PreviewCategories = ({ categories }) => {
                 </div>
 
                 <div className="mt-6 px-4 sm:hidden">
-                    <a href="#" className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
+                    <Link to="/categories" className="block text-sm font-bold text-gold font-poppins ">
                         Browse all categories<span aria-hidden="true"> &rarr;</span>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

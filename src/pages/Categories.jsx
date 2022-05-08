@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
+import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, FilterIcon } from '@heroicons/react/solid'
 import ItemListContainer from '../components/ItemListContainer'
 import { Link } from 'react-router-dom'
 import { categories } from '../utils/categories'
@@ -9,36 +9,22 @@ import { categories } from '../utils/categories'
 const sortOptions = [
     { name: 'Price: Low to High', state: 'low', current: false },
     { name: 'Price: High to Low', state: 'high', current: false },
-]
-const filters = [
-    {
-        id: 'size',
-        name: 'Size',
-        options: [
-            { value: 'XS', label: 'XS', checked: false },
-            { value: 'S', label: 'S', checked: false },
-            { value: 'M', label: 'M', checked: false },
-            { value: 'L', label: 'L', checked: false },
-            { value: 'XL', label: 'XL', checked: false },
-            { value: 'XXL', label: 'XXL', checked: false },
-        ],
-    },
+    { name: 'Default', state: 'default', current: false },
 ]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Categories() {
+const Categories = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [priceFilter, setpriceFilter] = useState('default')
     const [saleFilter, setSaleFilter] = useState(false)
 
-    
+
     const handleSale = (event) => {
         setSaleFilter(event.target.checked ? true : false)
     }
-
 
     return (
         <div className="bg-white">
@@ -86,62 +72,17 @@ export default function Categories() {
                                     <ul className="font-medium text-gray-900 px-2 py-3">
                                         {categories.map((category) => (
                                             <li key={category.name}>
-                                                <Link to={`/categories/${category.id}`} className="block px-2 py-3">
+                                                <Link to={`/categories/${category.id}`} onClick={() => setMobileFiltersOpen(false)} className="block px-2 py-3">
                                                     {category.name}
                                                 </Link>
                                             </li>
                                         ))}
                                         <li>
-                                            <Link to='/categories'>
+                                            <Link to='/categories' className='px-2 py-3'>
                                                 All products
                                             </Link>
                                         </li>
                                     </ul>
-
-                                    <h3 className="sr-only">Categories</h3>
-
-                                    {filters.map((section) => (
-                                        <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
-                                            {({ open }) => (
-                                                <>
-                                                    <h3 className="-mx-2 -my-3 flow-root">
-                                                        <Disclosure.Button className="px-2 py-3 bg-white w-full flex items-center justify-between text-gray-400 hover:text-gray-500">
-                                                            <span className="font-medium text-gray-900">{section.name}</span>
-                                                            <span className="ml-6 flex items-center">
-                                                                {open ? (
-                                                                    <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                                                ) : (
-                                                                    <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                                                )}
-                                                            </span>
-                                                        </Disclosure.Button>
-                                                    </h3>
-                                                    <Disclosure.Panel className="pt-6">
-                                                        <div className="space-y-6">
-                                                            {section.options.map((option, optionIdx) => (
-                                                                <div key={option.value} className="flex items-center">
-                                                                    <input
-                                                                        id={`filter-mobile-${section.id}-${optionIdx}`}
-                                                                        name={`${section.id}[]`}
-                                                                        defaultValue={option.value}
-                                                                        type="checkbox"
-                                                                        defaultChecked={option.checked}
-                                                                        className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                                                    />
-                                                                    <label
-                                                                        htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                                                        className="ml-3 min-w-0 flex-1 text-gray-500"
-                                                                    >
-                                                                        {option.label}
-                                                                    </label>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </Disclosure.Panel>
-                                                </>
-                                            )}
-                                        </Disclosure>
-                                    ))}
                                 </form>
                             </div>
                         </Transition.Child>
@@ -149,7 +90,7 @@ export default function Categories() {
                 </Transition.Root>
 
                 <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="relative flex items-baseline justify-between pt-24 pb-6 border-b border-gold">
+                    <div className="relative flex items-baseline justify-between pt-24 pb-6 border-b z-10 border-gold">
                         <h1 className="text-3xl font-bold font-lora text-dark text-gray-900">Products</h1>
 
                         <div className="flex items-center">
@@ -233,49 +174,6 @@ export default function Categories() {
                                     ))}
                                 </ul>
 
-                                {filters.map((section) => (
-                                    <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
-                                        {({ open }) => (
-                                            <>
-                                                <h3 className="-my-3 flow-root">
-                                                    <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
-                                                        <span className="font-medium text-gray-900">{section.name}</span>
-                                                        <span className="ml-6 flex items-center">
-                                                            {open ? (
-                                                                <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                                            ) : (
-                                                                <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                                            )}
-                                                        </span>
-                                                    </Disclosure.Button>
-                                                </h3>
-                                                <Disclosure.Panel className="pt-6">
-                                                    <div className="space-y-4">
-                                                        {section.options.map((option, optionIdx) => (
-                                                            <div key={option.value} className="flex items-center">
-                                                                <input
-                                                                    id={`filter-${section.id}-${optionIdx}`}
-                                                                    name={`${section.id}[]`}
-                                                                    defaultValue={option.value}
-                                                                    type="checkbox"
-                                                                    defaultChecked={option.checked}
-                                                                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                                                />
-                                                                <label
-                                                                    htmlFor={`filter-${section.id}-${optionIdx}`}
-                                                                    className="ml-3 text-sm text-gray-600"
-                                                                >
-                                                                    {option.label}
-                                                                </label>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </Disclosure.Panel>
-                                            </>
-                                        )}
-                                    </Disclosure>
-                                ))}
-
                                 <div className="mt-5">
 
                                     <div key='sale' className="flex items-center">
@@ -310,3 +208,5 @@ export default function Categories() {
         </div>
     )
 }
+
+export default Categories

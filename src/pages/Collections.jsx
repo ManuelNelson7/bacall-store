@@ -1,30 +1,7 @@
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { useParams } from 'react-router-dom'
-import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid'
-import { Link } from 'react-router-dom'
-import { categories } from '../utils/categories'
 import CollectionsContainer from '../components/CollectionsContainer'
 
-const filters = [
-    {
-        id: 'size',
-        name: 'Size',
-        options: [
-            { value: 'XS', label: 'XS', checked: false },
-            { value: 'S', label: 'S', checked: false },
-            { value: 'M', label: 'M', checked: false },
-            { value: 'L', label: 'L', checked: false },
-            { value: 'XL', label: 'XL', checked: false },
-            { value: 'XXL', label: 'XXL', checked: false },
-        ],
-    },
-]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
-
-export default function Collections() {
+const Collections = () => {
     const { id } = useParams()
 
     return (
@@ -52,3 +29,5 @@ export default function Collections() {
         </div>
     )
 }
+
+export default Collections

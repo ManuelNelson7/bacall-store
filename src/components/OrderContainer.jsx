@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Spinner from './Spinner'
-import { collection, doc, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore'
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import Order from '../pages/Order'
 
 const OrderContainer = () => {

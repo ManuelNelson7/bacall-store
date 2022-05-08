@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import ItemCount from './ItemCount'
 import Related from './Related'

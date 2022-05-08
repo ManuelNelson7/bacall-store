@@ -9,7 +9,6 @@ const Login = () => {
         email: "",
         password: ""
     });
-    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
 
     const navigate = useNavigate()

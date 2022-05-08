@@ -13,12 +13,11 @@ const ItemCount = ({ stock, initial = 0, item, size, id }) => {
   useEffect(() => {
     setShowCart(false)
     setcounter(initial)
-    console.log(size)
-  }, [id])
+  }, [])
 
   const onAdd = (number) => {
     setError("")
-    if (size != "" ) {
+    if (size !== "" ) {
       number > 0 && setShowCart(true)
       setShowCart && addToCart({ ...item, quantity: number, size })
     } else {
@@ -60,7 +59,7 @@ const ItemCount = ({ stock, initial = 0, item, size, id }) => {
           Go to the cart
         </Link>}
 
-      {error && <p className='text-red-500 text-center'>{error}</p>}
+      {error && <p className='text-brown text-center'>{error}</p>}
     </>
 
 

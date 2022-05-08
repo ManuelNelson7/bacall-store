@@ -39,6 +39,6 @@ export const navigation = {
         },
     ],
     pages: [
-        { name: 'Sale', href: '/sale' },
+        { name: 'New Collection', href: '/collections/basic-colours' },
     ],
 }

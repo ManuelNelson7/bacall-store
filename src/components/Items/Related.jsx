@@ -1,5 +1,4 @@
 import React from 'react'
-import ItemCount from '../Items/ItemCount'
 import { Link } from 'react-router-dom'
 
 

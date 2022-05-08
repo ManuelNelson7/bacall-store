@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import ItemCount from '../Items/ItemCount'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 

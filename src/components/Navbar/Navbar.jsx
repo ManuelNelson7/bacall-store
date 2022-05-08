@@ -1,4 +1,3 @@
-
 import { Fragment, useContext, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -81,10 +80,10 @@ const Navbar = () => {
                                                         <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                             <img src={item.imageSrc} alt={item.imageAlt} className="object-top object-cover" />
                                                         </div>
-                                                        <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                                        <Link to={item.href} onClick={() => setOpen(false)} className="mt-6 block font-medium text-gray-900">
                                                             <span className="absolute z-10 inset-0" aria-hidden="true" />
                                                             {item.name}
-                                                        </a>
+                                                        </Link>
                                                         <p aria-hidden="true" className="mt-1">
                                                             Shop now
                                                         </p>
@@ -102,7 +101,7 @@ const Navbar = () => {
                                                     >
                                                         {section.items.map((item) => (
                                                             <li key={item.name} className="flow-root">
-                                                                <Link to={`categories/${item.name}`} className="text-dark hover:text-brown font-poppins transition-all duration-100  -m-2 p-2 block text-sm">
+                                                                <Link to={`categories/${item.name}`} onClick={() => setOpen(false)} className="text-dark hover:text-brown font-poppins transition-all duration-100  -m-2 p-2 block text-sm">
                                                                     {item.name}
                                                                 </Link>
                                                             </li>
@@ -118,9 +117,9 @@ const Navbar = () => {
                             <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                 {navigation.pages.map((page) => (
                                     <div key={page.name} className="flow-root">
-                                        <a href={page.href} className="text-sm text-dark hover:text-gold font-medium font-poppins uppercase transition-all duration-100">
+                                        <Link to={page.href} className="text-sm text-dark hover:text-gold font-medium font-poppins uppercase transition-all duration-100">
                                             {page.name}
-                                        </a>
+                                        </Link>
                                     </div>
                                 ))}
                             </div>
@@ -142,7 +141,7 @@ const Navbar = () => {
                 </Dialog>
             </Transition.Root>
 
-            <header className="fixed top-0 left-0 w-screen bg-primary z-10">
+            <header className="fixed top-0 left-0 w-screen bg-primary z-20">
 
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="border-b border-gold">
@@ -222,10 +221,10 @@ const Navbar = () => {
                                                                                             className="w-full h-full object-top object-cover"
                                                                                         />
                                                                                     </div>
-                                                                                    <a href={item.href} className="mt-6 block font-semibold font-lora text-dark">
+                                                                                    <Link to={item.href} className="mt-6 block font-semibold font-lora text-dark">
                                                                                         <span className="absolute z-10 inset-0" aria-hidden="true" />
                                                                                         {item.name}
-                                                                                    </a>
+                                                                                    </Link>
                                                                                     <p aria-hidden="true" className="mt-1 text-dark">
                                                                                         Shop now
                                                                                     </p>
@@ -264,13 +263,13 @@ const Navbar = () => {
                                     ))}
 
                                     {navigation.pages.map((page) => (
-                                        <a
+                                        <Link
                                             key={page.name}
-                                            href={page.href}
+                                            to={page.href}
                                             className='flex items-center px-2.5 text-sm text-dark hover:text-gold font-medium font-poppins uppercase transition-all duration-100'
                                         >
                                             {page.name}
-                                        </a>
+                                        </Link>
                                     ))}
                                 </div>
                             </Popover.Group>

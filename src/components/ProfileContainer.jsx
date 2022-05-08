@@ -18,10 +18,6 @@ const ProfileContainer = () => {
     }
 
     useEffect(() => {
-        console.log(orders)
-    }, [orders])
-
-    useEffect(() => {
         const db = getFirestore()
         const ordersRef = query(
             collection(db, 'orders'),

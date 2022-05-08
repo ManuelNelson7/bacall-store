@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import ItemCount from '../Items/ItemCount'
 import { Link } from 'react-router-dom'
 import { AppContext } from "../AppContext";
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
+import { getFirestore, getDocs, collection } from 'firebase/firestore'
 import Spinner from '../Spinner';
-import { Link } from "react-router-dom";
 import PreviewCategories from "./PreviewCategories";
 import PreviewCollections from "./PreviewCollections";
 

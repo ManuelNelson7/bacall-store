@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth'
 import { auth } from '..';
 
@@ -7,10 +7,6 @@ export const AppContext = createContext();
 const AppContextProvider = ({ children }) => {
     const [cart, setCart] = useState([])
     const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        console.log(user)
-    }, [user])
 
     const signup = async (email, password, name) => {
         await createUserWithEmailAndPassword(auth, email, password)
@@ -54,11 +50,6 @@ const AppContextProvider = ({ children }) => {
     const clearCart = () => {
         setCart([])
     }
-
-    const buyAll = () => {
-        console.log('buyAll');
-    }
-
     const totalQuantity = () => {
         return cart.reduce((acc, item) => {
             return acc + item.quantity
@@ -100,7 +91,6 @@ const AppContextProvider = ({ children }) => {
             addToCart,
             removeFromCart,
             clearCart,
-            buyAll,
             totalQuantity,
             subTotal,
             shipping,

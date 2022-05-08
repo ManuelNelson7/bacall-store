@@ -18,13 +18,14 @@ const Checkout = () => {
     } = useContext(AppContext)
 
     const [checkOutId, setCheckOutId] = useState("");
+    const [error, setError] = useState("");
 
     const navigate = useNavigate()
 
     const validate = values => {
         const errors = {}
 
-        if (formik.email) {
+        if (!user) {
             if (!values.email) {
                 errors.email = 'Required'
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -32,7 +33,7 @@ const Checkout = () => {
             }
         }
 
-        if (formik.name) {
+        if (!user) {
             if (!values.name) {
                 errors.name = 'Required'
             } else if (values.name.length < 5) {
@@ -41,6 +42,23 @@ const Checkout = () => {
                 errors.name = 'Must be 20 characters or less'
             }
         }
+
+        if (!values.address) {
+            errors.address = 'Required'
+        } else if (values.address.length < 5) {
+            errors.address = 'Must be 5 characters or more'
+        } else if (values.address.length > 20) {
+            errors.address = 'Must be 20 characters or less'
+        }
+
+        if (!values.phone) {
+            errors.phone = 'Required'
+        } else if (values.phone.length < 5) {
+            errors.phone = 'Must be 5 characters or more'
+        } else if (!/^[0-9]{5,20}$/.test(values.phone)) {
+            errors.phone = 'Must be a valid phone number'
+        }
+
 
         return errors
     }
@@ -90,20 +108,21 @@ const Checkout = () => {
                     total: Number(total())
                 }
             }
-
-
-
             // Sendind the data to firebase
             const db = getFirestore();
             const orderRef = collection(db, "orders");
 
-            // Addind the order to the orders collection
-            addDoc(orderRef, order).then(({ id }) => {
-                setCheckOutId(id);
-                navigate("/order/" + id);
-                cleanCart();
-            });
-            resetForm();
+            if (order.buyer.email && order.buyer.name && order.buyer.address && order.buyer.phone) {
+                // Addind the order to the orders collection
+                addDoc(orderRef, order).then(({ id }) => {
+                    setCheckOutId(id);
+                    navigate("/order/" + id);
+                    cleanCart();
+                });
+                resetForm();
+            } else {
+                setError("Please fill all the fields");
+            }
         },
     })
 
@@ -117,43 +136,43 @@ const Checkout = () => {
                     <form onSubmit={formik.handleSubmit} className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
                         <div>
 
-                            {!user &&
-                                <div>
-                                    <h2 className="text-lg font-medium text-gray-900">Contact information</h2>
 
-                                    <div className="mt-4">
-                                        <label htmlFor="email-address" className="block text-sm font-medium text-dark">
-                                            Email address *
-                                        </label>
-                                        <div className="mt-1">
-                                            <input
-                                                type="email"
-                                                {...formik.getFieldProps('email')}
-                                                className="block w-full border-2 py-1.5 pl-2 border-primary rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            />
-                                            {formik.errors.email && formik.touched.email ? <p className="text-brown text-xs mt-2">{formik.errors.email}</p> : null}
-                                        </div>
-                                        <div className="mt-2 flex gap-1 text-sm">
-                                            <p>Would you like to skip this step?
-                                            </p>
-                                            <Link to="/signup" className="text-gold font-semibold underline">Log in</Link>
-                                        </div>
-                                    </div>
+                            {!user && <div>
+                                <h2 className="text-lg font-medium text-gray-900">Contact information</h2>
 
-                                    <div className="mt-4">
-                                        <label htmlFor="email-address" className="block text-sm font-medium text-dark">
-                                            Name *
-                                        </label>
-                                        <div className="mt-1">
-                                            <input
-                                                type="text"
-                                                {...formik.getFieldProps('name')}
-                                                className="block w-full border-2 py-1.5 pl-2 border-primary rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            />
-                                            {formik.errors.name && formik.touched.name ? <p className="text-brown text-xs mt-2">{formik.errors.name}</p> : null}
-                                        </div>
+                                <div className="mt-4">
+                                    <label htmlFor="email-address" className="block text-sm font-medium text-dark">
+                                        Email address *
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            type="email"
+                                            {...formik.getFieldProps('email')}
+                                            className="block w-full border-2 py-1.5 pl-2 border-primary rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        />
+                                        {formik.errors.email && formik.touched.email ? <p className="text-brown text-xs mt-2">{formik.errors.email}</p> : null}
                                     </div>
-                                </div>}
+                                    <div className="mt-2 flex gap-1 text-sm">
+                                        <p>Would you like to skip this step?
+                                        </p>
+                                        <Link to="/login" className="text-gold font-semibold underline">Log in</Link>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4">
+                                    <label htmlFor="email-address" className="block text-sm font-medium text-dark">
+                                        Name *
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            type="text"
+                                            {...formik.getFieldProps('name')}
+                                            className="block w-full border-2 py-1.5 pl-2 border-primary rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        />
+                                        {formik.errors.name && formik.touched.name ? <p className="text-brown text-xs mt-2">{formik.errors.name}</p> : null}
+                                    </div>
+                                </div>
+                            </div>}
 
                             <div className={user ? "mt-10" : "mt-10 border-t border-gray-200 pt-10"}>
                                 <h2 className="text-lg font-medium text-gray-900">Shipping information</h2>
@@ -282,6 +301,8 @@ const Checkout = () => {
                                     >
                                         Confirm order
                                     </button>
+
+                                    {error && <p className="text-brown text-xs mt-2">{error}</p>}
                                 </div>
                             </div>
                         </div>

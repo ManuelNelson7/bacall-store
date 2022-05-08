@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
-/* This example requires Tailwind CSS v2.0+ */
-export default function Example() {
+const Promo = () => {
     return (
         <div className="relative bg-gray800 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
             <div className="absolute inset-0 overflow-hidden">
@@ -29,3 +28,5 @@ export default function Example() {
         </div>
     )
 }
+
+export default Promo
