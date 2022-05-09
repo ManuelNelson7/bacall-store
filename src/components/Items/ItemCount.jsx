@@ -13,7 +13,7 @@ const ItemCount = ({ stock, initial = 0, item, size, id }) => {
   useEffect(() => {
     setShowCart(false)
     setcounter(initial)
-  }, [])
+  }, [id])
 
   const onAdd = (number) => {
     setError("")
