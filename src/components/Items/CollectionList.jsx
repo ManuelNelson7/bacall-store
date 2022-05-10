@@ -9,6 +9,7 @@ const CollectionList = ({ items }) => {
                 {items?.map((item) => (
                     <CollectionItem
                         item={item}
+                        key={item.id}
                     />
                 ))}
             </div>

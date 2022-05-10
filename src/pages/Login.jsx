@@ -19,7 +19,7 @@ const Login = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, [])
+    }, [])
 
 
     const handleChange = ({ target: { name, value } }) => {
@@ -60,7 +60,6 @@ const Login = () => {
                 setError(error.message)
             }
         }
-
 
     }
 
@@ -151,9 +150,9 @@ const Login = () => {
                                     </div>
 
                                     <div className="text-sm">
-                                        <button className="font-medium text-dark hover:text-brown" onClick={() => handleResetPassword()}>
+                                        <p className="font-medium text-dark hover:text-brown pointer" onClick={() => handleResetPassword()}>
                                             Forgot your password?
-                                        </button>
+                                        </p>
                                     </div>
                                 </div>
 

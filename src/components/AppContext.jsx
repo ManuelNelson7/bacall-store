@@ -62,7 +62,7 @@ const AppContextProvider = ({ children }) => {
     //get Cart from localStorage if exists
     useEffect(() => {
         const localCart = JSON.parse(localStorage.getItem('localCart'))
-        if (localCart.length > 0) {
+        if (localCart?.length > 0) {
             setCart(localCart)
         }
     }, [])
