@@ -21,7 +21,6 @@ const Login = () => {
         window.scrollTo(0, 0);
     }, [])
 
-
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value });
     }
@@ -62,7 +61,6 @@ const Login = () => {
         }
 
     }
-
 
     return (
         <div className="min-h-screen bg-white flex">
