@@ -19,8 +19,9 @@ const ItemDetailContainer = () => {
             .then(res => {
                 setItem({ id: res.id, ...res.data() })
             })
+            
+        window.scrollTo(0, 0);
     }, [id])
-
 
     useEffect(() => {
         const db = getFirestore();
@@ -30,7 +31,7 @@ const ItemDetailContainer = () => {
             itemsRef = query(collection(db, 'products'), where('categoryId', '==', item.categoryId));
             getDocs(itemsRef)
                 .then(res => {
-                    setRelated(res.docs.slice(0,4).map((related) => ({ id: related.id, ...related.data() })
+                    setRelated(res.docs.slice(0, 4).map((related) => ({ id: related.id, ...related.data() })
                     ))
                 })
                 .finally(() => setLoading(false))

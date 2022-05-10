@@ -26,6 +26,10 @@ const Categories = () => {
         setSaleFilter(event.target.checked ? true : false)
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <div className="bg-white">
             <div>
@@ -78,7 +82,7 @@ const Categories = () => {
                                             </li>
                                         ))}
                                         <li>
-                                            <Link to='/categories' className='px-2 py-3'>
+                                            <Link to='/categories' onClick={() => setMobileFiltersOpen(false)} className='px-2 py-3'>
                                                 All products
                                             </Link>
                                         </li>

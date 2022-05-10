@@ -1,10 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { AppContext } from "../components/AppContext"
 import { useNavigate } from "react-router-dom";
 
-
 const Signin = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [])
+      
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -15,11 +19,16 @@ const Signin = () => {
 
     const navigate = useNavigate()
 
-    let { signup } = useContext(AppContext)
+    let { signup, loginWithGoogle } = useContext(AppContext)
 
 
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value });
+    }
+
+    const handleGoogleSignUp = async () => {
+        await loginWithGoogle()
+        navigate("/")
     }
 
     const handleSubmit = async (e) => {
@@ -68,10 +77,10 @@ const Signin = () => {
                             <div>
                                 <p className="text-sm font-medium text-gray-700">Sign in with</p>
 
-                                <button className="mt-1 w-full">
+                                <button className="mt-1 w-full" onClick={() => handleGoogleSignUp()}>
                                     <div className="w-full inline-flex justify-center py-1.5 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                                     >
-                                        <span className="sr-only">Sign in with Facebook</span>
+                                        <span className="sr-only">Sign in with Google</span>
                                         <img src="/img/google-icon.svg" className="h-6 w-6" alt="" />
                                     </div>
                                 </button>

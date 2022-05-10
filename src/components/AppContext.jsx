@@ -1,11 +1,19 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut, updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup,
+    sendPasswordResetEmail
+} from 'firebase/auth'
 import { auth } from '..';
 
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-    const [cart, setCart] = useState([])
+    const [cart, setCart] = useState(JSON.parse(localStorage.getItem("localCart")) || [])
     const [user, setUser] = useState(null)
 
     const signup = async (email, password, name) => {
@@ -19,11 +27,19 @@ const AppContextProvider = ({ children }) => {
 
     const logout = () => signOut(auth);
 
+    const loginWithGoogle = () => {
+        const googleProvider = new GoogleAuthProvider();
+        return signInWithPopup(auth, googleProvider);
+    }
+
+    const resetPassword = (email) => {
+        sendPasswordResetEmail(auth, email);
+    }
+
     useEffect(() => {
         const unsuscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
         });
-
         return () => unsuscribe();
     }, [])
 
@@ -42,6 +58,15 @@ const AppContextProvider = ({ children }) => {
             setCart([...cart])
         }
     }
+
+    //get Cart from localStorage if exists
+    useEffect(() => {
+        const localCart = JSON.parse(localStorage.getItem('localCart'))
+        if (localCart.length > 0) {
+            setCart(localCart)
+        }
+    }, [])
+
 
     const removeFromCart = (product) => {
         setCart(cart.filter(item => item.id !== product.id))
@@ -100,7 +125,9 @@ const AppContextProvider = ({ children }) => {
             signup,
             login,
             logout,
-            formatPrice
+            formatPrice,
+            loginWithGoogle,
+            resetPassword
         }}>
             {children}
         </AppContext.Provider>

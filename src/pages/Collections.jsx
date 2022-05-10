@@ -1,8 +1,13 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import CollectionsContainer from '../components/CollectionsContainer'
 
 const Collections = () => {
     const { id } = useParams()
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
 
     return (
         <div className="bg-white">

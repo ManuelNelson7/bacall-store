@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { AppContext } from "../components/AppContext"
 import { useNavigate } from "react-router-dom";
@@ -11,13 +11,24 @@ const Login = () => {
     });
     const [error, setError] = useState("");
 
+    const [message, setMessage] = useState("");
+
     const navigate = useNavigate()
 
-    let { login } = useContext(AppContext)
+    let { login, loginWithGoogle, resetPassword } = useContext(AppContext)
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [])
 
 
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value });
+    }
+
+    const handleGoogleLogin = async () => {
+        await loginWithGoogle()
+        navigate("/")
     }
 
     const handleSubmit = async (e) => {
@@ -34,6 +45,23 @@ const Login = () => {
         } else {
             setError("Please fill in all fields");
         }
+    }
+
+    const handleResetPassword = () => {
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        !user.email && setError("Please fill an email");
+        user.email && !emailRegex.test(user.email) && setError("Please enter a valid email");
+        if (user.email && emailRegex.test(user.email)) {
+            try {
+                resetPassword(user.email);
+                setMessage("Password reset email sent");
+            } catch (error) {
+                setError(error.message)
+            }
+        }
+
+
     }
 
 
@@ -55,10 +83,10 @@ const Login = () => {
                         <div>
                             <div>
                                 <p className="text-sm font-medium text-gray-700">Sign in with</p>
-                                <button className="mt-1 w-full">
+                                <button className="mt-1 w-full" onClick={() => handleGoogleLogin()}>
                                     <div className="w-full inline-flex justify-center py-1.5 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                                     >
-                                        <span className="sr-only">Sign in with Facebook</span>
+                                        <span className="sr-only">Sign in with Google</span>
                                         <img src="/img/google-icon.svg" className="h-6 w-6" alt="" />
                                     </div>
                                 </button>
@@ -103,7 +131,6 @@ const Login = () => {
                                             name="password"
                                             type="password"
                                             autoComplete="current-password"
-                                            required
                                             onChange={handleChange}
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
@@ -124,13 +151,14 @@ const Login = () => {
                                     </div>
 
                                     <div className="text-sm">
-                                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <button className="font-medium text-dark hover:text-brown" onClick={() => handleResetPassword()}>
                                             Forgot your password?
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
 
                                 {error && <div className="text-brown text-sm">{error}</div>}
+                                {message && <div className="text-gold text-sm">{message}</div>}
 
                                 <div>
                                     <button

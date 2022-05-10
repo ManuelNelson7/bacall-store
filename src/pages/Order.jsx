@@ -1,7 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 
 const Order = ({ ticket, history, id }) => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [])
+
     return (
         <main className="bg-white relative lg:min-h-screen">
             <div className="h-80 overflow-hidden lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-12">

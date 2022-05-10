@@ -84,21 +84,25 @@ const Navbar = () => {
                                                             <span className="absolute z-10 inset-0" aria-hidden="true" />
                                                             {item.name}
                                                         </Link>
-                                                        <p aria-hidden="true" className="mt-1">
-                                                            Shop now
-                                                        </p>
                                                     </div>
                                                 ))}
                                             </div>
                                             {category.sections.map((section) => (
                                                 <div key={section.name}>
-                                                    <p id={`${category.id}-${section.id}-heading-mobile`} className="font-semibold text-dark font-lora">
+                                                    <p id={`${category.id}-${section.id}-heading-mobile`} className="font-semibold text-gold font-lora">
                                                         {section.name}
                                                     </p>
                                                     <ul
                                                         aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                                                         className="mt-6 flex flex-col space-y-6"
                                                     >
+                                                        <li>
+                                                            <Link to='categories'
+                                                                onClick={() => setOpen(false)}
+                                                                className="text-dark hover:text-brown font-poppins transition-all duration-100  -m-2 p-2 block text-sm">
+                                                                All Products
+                                                            </Link>
+                                                        </li>
                                                         {section.items.map((item) => (
                                                             <li key={item.name} className="flow-root">
                                                                 <Link to={`categories/${item.name}`} onClick={() => setOpen(false)} className="text-dark hover:text-brown font-poppins transition-all duration-100  -m-2 p-2 block text-sm">
@@ -117,20 +121,30 @@ const Navbar = () => {
                             <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                 {navigation.pages.map((page) => (
                                     <div key={page.name} className="flow-root">
-                                        <Link to={page.href} className="text-sm text-dark hover:text-gold font-medium font-poppins uppercase transition-all duration-100">
+                                        <Link to={page.href}
+                                            onClick={() => setOpen(false)}
+                                            className="text-sm text-dark hover:text-gold font-medium font-poppins uppercase transition-all duration-100"
+                                        >
                                             {page.name}
                                         </Link>
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="py-6 px-4 space-y-6">
+                            <div className="py-2 px-4 space-y-6">
                                 <div className="flow-root">
-                                    {!user === null ? (
-                                        <Link to="/signin" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
+                                    {!user ? (
+                                        <Link to="/signup"
+                                            onClick={() => setOpen(false)}
+                                            className="text-sm uppercase text-dark hover:text-brown font-poppins transition-all duration-100"
+                                        >
                                             Sign In
                                         </Link>) :
-                                        (<Link to="/profile" className="text-sm text-dark hover:text-brown font-poppins transition-all duration-100">
+
+                                        (<Link to="/profile"
+                                            onClick={() => setOpen(false)}
+                                            className="text-sm uppercase text-dark hover:text-brown font-poppins transition-all duration-100"
+                                        >
                                             Profile
                                         </Link>)
                                     }

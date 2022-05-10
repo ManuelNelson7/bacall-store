@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useEffect, useContext } from "react"
 import { Link } from "react-router-dom";
 import { LogoutIcon } from '@heroicons/react/outline'
+import { AppContext } from "../components/AppContext"
 
 const Profile = ({ user, orders, loginOut }) => {
 
@@ -9,9 +10,11 @@ const Profile = ({ user, orders, loginOut }) => {
         return dateObj.toLocaleDateString();
     }
 
-    const formatPrice = (price) => {
-        return `$${price.toFixed(2)}`
-    }
+    let { formatPrice } = useContext(AppContext)
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
 
     return (
         <div className="relative min-h-screen bg-gray-100 mt-10">

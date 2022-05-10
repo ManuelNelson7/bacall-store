@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { AppContext } from "../components/AppContext"
 import { TrashIcon } from '@heroicons/react/solid'
 import { Link, useNavigate } from "react-router-dom"
@@ -14,11 +14,16 @@ const Checkout = () => {
         total,
         removeFromCart,
         cleanCart,
-        user
+        user,
+        formatPrice
     } = useContext(AppContext)
 
     const [checkOutId, setCheckOutId] = useState("");
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
 
     const navigate = useNavigate()
 
@@ -278,19 +283,19 @@ const Checkout = () => {
                                 <dl className="border-t border-primary py-6 px-4 space-y-6 sm:px-6 font-poppins">
                                     <div className="flex items-center justify-between">
                                         <dt className="text-sm">Subtotal</dt>
-                                        <dd className="text-sm font-medium text-gray-900">${subTotal().toFixed(2)}</dd>
+                                        <dd className="text-sm font-medium text-gray-900">{formatPrice(subTotal())}</dd>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <dt className="text-sm">Shipping</dt>
-                                        <dd className="text-sm font-medium text-gray-900">{shipping() === 0 ? "Free" : `$${shipping().toFixed(2)}`}</dd>
+                                        <dd className="text-sm font-medium text-gray-900">{shipping() === 0 ? "Free" : formatPrice(shipping())}</dd>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <dt className="text-sm">Taxes</dt>
-                                        <dd className="text-sm font-medium text-gray-900">${taxes().toFixed(2)}</dd>
+                                        <dd className="text-sm font-medium text-gray-900">{formatPrice(taxes())}</dd>
                                     </div>
                                     <div className="flex items-center justify-between border-t border-primary pt-6">
                                         <dt className="text-base font-medium">Total</dt>
-                                        <dd className="text-base font-medium text-gray-900">${total().toFixed(2)}</dd>
+                                        <dd className="text-base font-medium text-gray-900">{formatPrice(total())}</dd>
                                     </div>
                                 </dl>
 

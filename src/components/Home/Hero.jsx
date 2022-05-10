@@ -8,7 +8,9 @@ const Hero = () => {
                 <div className='sm:w-4/12 flex flex-col gap-5'>
                     <span className='uppercase font-poppins text-gold text-sm md:text-md font-semibold'>New Arrival</span>
                     <h1 className='font-lora font-medium lg:text-6xl text-5xl'>Basic Colours <br /> Comeback</h1>
-                    <p className='font-poppins w-11/12'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                    <p className='font-poppins w-11/12'>
+                        The basic colours are back in our new collection, with a new look and feel. Choose your favourite colour and boost your style.
+                    </p>
                     <div className='flex gap-4 sm:flex-row flex-col'>
                         <Link to="/categories"
                             className='uppercase justify-center flex bg-gold outline outline-2 outline-gold text-white font-semibold px-6 py-2.5 rounded-md transition-all duration-150 hover:bg-brown hover:text-white hover:outline-brown'

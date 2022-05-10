@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ItemCart from "../components/cart/ItemCart";
 import { AppContext } from "../components/AppContext";
 
 const FullCart = () => {
-    let { cart, subTotal, shipping, taxes, total } = useContext(AppContext)
+    let { cart, subTotal, shipping, taxes, total, formatPrice } = useContext(AppContext)
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
 
     return (
         <div className="bg-white">
@@ -39,23 +43,23 @@ const FullCart = () => {
                             <dl className="mt-6 space-y-4 font-poppins">
                                 <div className="flex items-center justify-between">
                                     <dt className="text-sm text-gray-600">Subtotal</dt>
-                                    <dd className="text-sm font-medium text-gray-900">${subTotal().toFixed(2)}</dd>
+                                    <dd className="text-sm font-medium text-gray-900">{formatPrice(subTotal())}</dd>
                                 </div>
                                 <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                                     <dt className="flex items-center text-sm text-gray-600">
                                         <span>Shipping</span>
                                     </dt>
-                                    <dd className="text-sm font-medium text-gray-900d"> {shipping() === 0 ? "Free" : `$${shipping().toFixed(2)}`}</dd>
+                                    <dd className="text-sm font-medium text-gray-900d"> {shipping() === 0 ? "Free" : formatPrice(shipping())}</dd>
                                 </div>
                                 <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                                     <dt className="flex text-sm text-gray-600">
                                         <span>Tax estimate</span>
                                     </dt>
-                                    <dd className="text-sm font-medium text-gray-900">${taxes().toFixed(2)}</dd>
+                                    <dd className="text-sm font-medium text-gray-900">{formatPrice(taxes())}</dd>
                                 </div>
                                 <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                                     <dt className="text-base font-medium text-gray-900 text-gold">Order total</dt>
-                                    <dd className="text-base font-medium text-gray-900">${total().toFixed(2)}</dd>
+                                    <dd className="text-base font-medium text-gray-900">{formatPrice(total())}</dd>
                                 </div>
                             </dl>
 
