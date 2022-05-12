@@ -8,7 +8,7 @@
 
 - [Repository](https://github.com/ManuelNelson7/bacall-store)
 
-- [Live](https://bugtracker-manuel.netlify.app/)
+- [Live](https://bacall-store.web.app/)
 
 ## Built With
 
